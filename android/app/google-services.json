@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "371721248584",
+    "project_id": "pointplus-68339",
+    "storage_bucket": "pointplus-68339.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371721248584:android:37baad4d3b3db8845e9d7d",
+        "android_client_info": {
+          "package_name": "com.firstlogicmetalab.point_plus_pos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "371721248584-611is5v3bpdcuq9jphl6fbnf4ckr146g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDed80xvTjr1s_ghLyBprDM5ym04U2wZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "371721248584-611is5v3bpdcuq9jphl6fbnf4ckr146g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371721248584:android:ae70c6ee8d8819105e9d7d",
+        "android_client_info": {
+          "package_name": "com.firstlogicmetalab.pointplusAdmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "371721248584-b2qtvkkg9qoulv5dikuaprc80v5ptsq9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.firstlogicmetalab.pointplusAdmin",
+            "certificate_hash": "2dc508ded681dc9903e9870fe6fef678cc6c902a"
+          }
+        },
+        {
+          "client_id": "371721248584-611is5v3bpdcuq9jphl6fbnf4ckr146g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDed80xvTjr1s_ghLyBprDM5ym04U2wZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "371721248584-611is5v3bpdcuq9jphl6fbnf4ckr146g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
