@@ -35,7 +35,7 @@ class _AcceptedOrdersWidgetState extends State<AcceptedOrdersWidget> {
   List<int> bytes = [];
   qr(String vatTotal1, String grantTotal) {
     // seller name
-    String sellerName = 'Boofiya Faraula';
+    String sellerName = 'POINT PLUS';
     String vat_registration = vatNumber;
     String vatTotal = vatTotal1;
     String invoiceTotal = grantTotal;

@@ -17,16 +17,12 @@ import '../login.dart';
 class UserService{
   FirebaseAuth _auth= FirebaseAuth.instance;
   FirebaseFirestore _firestore  = FirebaseFirestore.instance;
-
   final googleSignIn = GoogleSignIn();
 
   UserService(){
     initializeFirebaseApp();
   }
-
   void initializeFirebaseApp() async{
-
-
       await Firebase.initializeApp();
       // _auth = FirebaseAuth.instance;
       // _firestore = FirebaseFirestore.instance;

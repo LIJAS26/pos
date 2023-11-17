@@ -104,9 +104,10 @@ class PurchasePdfPage {
                   'Voucher No',
                   'Date',
                   'Invoice No',
+                  "Vat Number",
                   'Amount',
                   'Description',
-                  'Staff'
+                  'Staff',
 
                 ],
 
@@ -120,6 +121,7 @@ class PurchasePdfPage {
                     item['voucherNo'],
                     item['salesDate'].toDate().toString().substring(0,10),
                     item['invoiceNo'],
+                    item['vatNumber'],
                     item['amount'],
                     item['description'],
                     item['staff'],

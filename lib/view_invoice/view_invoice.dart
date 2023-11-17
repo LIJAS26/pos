@@ -42,13 +42,12 @@ class _ViewInvoiceState extends State<ViewInvoice> {
     returnItems = [];
     super.initState();
     getInvoiceByNo();
-    // setPrinterImages();
   }
 
   List<int> bytes = [];
   qr(String vatTotal1, String grantTotal,DateTime salesDate) {
     // seller name
-    String sellerName = 'Boofiya Faraula';
+    String sellerName = 'POINT PLUS';
     String vat_registration = vatNumber;
     String vatTotal = vatTotal1;
     String invoiceTotal = grantTotal;
@@ -93,8 +92,6 @@ class _ViewInvoiceState extends State<ViewInvoice> {
   ArabicNumbers arabicNumber = ArabicNumbers();
   ScreenshotController screenshotController = ScreenshotController();
 
-  bool working=false;
-
   efg(int invNo,double discount,int rInvNo,List rItems,List items,int token,deliveryCharge,DateTime saleDate,double pc,double pb,double bal) async {
 
     final CapabilityProfile profile = await CapabilityProfile.load();
@@ -111,9 +108,14 @@ class _ViewInvoiceState extends State<ViewInvoice> {
     final im.Image image = im.decodeImage(imgBytes);
     bytes += generator.image(image);
     bytes += generator.feed(2);
+    // bytes+=generator.text('Sharayya No.5 Makkah near Sulthan Sweets',styles: PosStyles(align: PosAlign.center,),);
 
+
+
+    //
     final im.Image image1 = im.decodeImage(capturedImage1);
     bytes += generator.image(image1);
+
     capturedImage10= await    screenshotController
         .captureFromWidget(Container(
       color: Colors.white,
@@ -134,6 +136,14 @@ class _ViewInvoiceState extends State<ViewInvoice> {
 
               ],
             ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Text('Order Type', style: TextStyle(color: Colors.black, fontSize: fontSize + 2, fontWeight: FontWeight.w600),),
+            //     Text(dropdownvalue, style: TextStyle(color: Colors.black, fontSize: fontSize, fontWeight: FontWeight.w600),),
+            //
+            //   ],
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children:  [
@@ -148,42 +158,38 @@ class _ViewInvoiceState extends State<ViewInvoice> {
     );
     final im.Image image10 = im.decodeImage(capturedImage10);
     bytes += generator.image(image10);
-
     bytes +=generator.text("-------------------------------------------",styles: PosStyles(bold: true,align: PosAlign.center,height: PosTextSize.size2,));
 
     bytes +=generator.text("TOKEN NUMBER : $token",styles: PosStyles(bold: true,align: PosAlign.center,height: PosTextSize.size2,width: PosTextSize.size2));
 
     bytes +=generator.text("-------------------------------------------",styles: PosStyles(bold: true,align: PosAlign.center,height: PosTextSize.size2,));
 
-    //HAEAD IMAGE
-    // final Uint8List imgBytes1 = data1.buffer.asUint8List();
-    // final im.Image image11 = im.decodeImage(imgBytes1);
-    // bytes += generator.image(image11);
+
 
     final im.Image imagehead = im.decodeImage(capturedhead);
     bytes += generator.image(imagehead,);
     print('capturedhead');
     print(capturedhead);
-    // print(imagehead);
 
-    var capturedImage12= await    screenshotController
-        .captureFromWidget(Container(
-      color: Colors.white,
-      width: printWidth*3,
-      height: 15,
-      child:Container(
-          padding: const EdgeInsets.all(1.0),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          child: Center(child: Text('........................................',
-            style: TextStyle(color: Colors.black,fontSize: printWidth*.25),))
-      ),
-    )
-    );
 
-    final im.Image image13 = im.decodeImage(capturedImage12);
-    bytes += generator.image(image13);
+    // var capturedImage12= await    screenshotController
+    //     .captureFromWidget(Container(
+    //   color: Colors.white,
+    //   width: printWidth*3,
+    //   height: 15,
+    //   child:Container(
+    //       padding: const EdgeInsets.all(1.0),
+    //       decoration: const BoxDecoration(
+    //         color: Colors.white,
+    //       ),
+    //       child: Center(child: Text('........................................',
+    //         style: TextStyle(color: Colors.black,fontSize: printWidth*.25),))
+    //   ),
+    // )
+    // );
+    //
+    // final im.Image image13 = im.decodeImage(capturedImage12);
+    // bytes += generator.image(image13);
 
     String itemString = '';
     String itemStringArabic = '';
@@ -245,7 +251,7 @@ class _ViewInvoiceState extends State<ViewInvoice> {
                                   children: [
                                     Text('$arabic $addOnArabic',
                                       // textDirection: TextDirection.rtl,
-                                      style:  TextStyle(
+                                      style:  const TextStyle(
                                         fontFamily: 'GE Dinar One Medium',
                                         fontSize: 17,
                                         fontWeight: FontWeight.w600,
@@ -366,7 +372,13 @@ class _ViewInvoiceState extends State<ViewInvoice> {
                         ],
                       ),
                     ),
-
+                    // Text("${item['pdtname']} $addON",
+                    //   textDirection: TextDirection.ltr,
+                    //   style: const TextStyle(
+                    //     fontSize: 14,
+                    //     color: Colors.black,
+                    //   ),
+                    // ),
 
                   ]
               )
@@ -454,30 +466,6 @@ class _ViewInvoiceState extends State<ViewInvoice> {
               Text('${(totalAmount * gst / 100).toStringAsFixed(2)}',style:  TextStyle(color: Colors.black,fontSize: fontSize+4,fontWeight: FontWeight.w600),),
             ],
           ),),
-        Container(    padding: const EdgeInsets.all(1.0),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          child:     Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Delivery Charge - رسوم التوصيل : ',style:  TextStyle(color: Colors.black,fontSize: fontSize+4,fontWeight: FontWeight.w600),),
-              Text('${double.tryParse(delivery).toStringAsFixed(2)}',style:  TextStyle(color: Colors.black,fontSize: fontSize+4,fontWeight: FontWeight.w600),),
-            ],
-          ),),
-        Container(
-          padding: const EdgeInsets.all(1.0),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Discount -  خصم  : ', style: TextStyle(color: Colors.black, fontSize: fontSize+4, fontWeight: FontWeight.w600),),
-              Text((discount == null ? "0.00" : discount.toStringAsFixed(2)), style: TextStyle(color: Colors.black, fontSize: fontSize+4, fontWeight: FontWeight.w600),),
-
-            ],
-          ),),
         Container( padding: const EdgeInsets.all(1.0),
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -509,15 +497,13 @@ class _ViewInvoiceState extends State<ViewInvoice> {
             color: Colors.white,
           ),
           child:     Center(
-            child:  Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+            child:   Column(
+
+              crossAxisAlignment: CrossAxisAlignment.start,
               children:   [
-                // Text('نقدأ  :  ${arabicNumber.convert(pc.toStringAsFixed(2))}',style:  TextStyle(color: Colors.black,fontSize: fontSize,fontWeight: FontWeight.w600),),
-                Text('Cash  :  ${pc}',style:  TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
-                // Text('مصرف  :  ${arabicNumber.convert(pb.toStringAsFixed(2))}',style:  TextStyle(color: Colors.black,fontSize: fontSize,fontWeight: FontWeight.w600),),
-                Text('Bank  :  ${pb}',style:  TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
-                // Text('المتبقي :  ${arabicNumber.convert(bal.toStringAsFixed(2))}',style:  TextStyle(color: Colors.black,fontSize: fontSize,fontWeight: FontWeight.w600),),
-                Text('Change :  ${bal}',style:  TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
+                Text('Cash      :  ${pc.toStringAsFixed(2)}',style:  TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
+                Text('Bank      :  ${pb.toStringAsFixed(2)}',style:  TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
+                Text('Change :  ${bal.toStringAsFixed(2)}',style:  TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
 
               ],
             ),
@@ -554,13 +540,7 @@ class _ViewInvoiceState extends State<ViewInvoice> {
         ],
       ),
     ));
-    // itemWidgets.add(     Container(
-    //     padding: const EdgeInsets.all(1.0),
-    //     decoration: const BoxDecoration(
-    //       color: Colors.white,
-    //     ),
-    //     child:  Center(child: Text('..................................................',
-    //       style: TextStyle(color: Colors.black,fontSize: printWidth*.25),))),);
+
     itemWidgets.add(     Container(
         padding: const EdgeInsets.all(1.0),
         decoration: const BoxDecoration(
@@ -602,9 +582,7 @@ class _ViewInvoiceState extends State<ViewInvoice> {
 
 
       grantTotal += total;
-
-      deliveryCharge = item['deliveryCharge'] == null
-          ? 0
+      deliveryCharge = item['deliveryCharge'] == null ? 0
           : double.tryParse(item['deliveryCharge'].toString());
       newAddOn = item['addOns'];
       newAddOnArabic = item['addOnArabic'];
@@ -613,167 +591,126 @@ class _ViewInvoiceState extends State<ViewInvoice> {
       double price = double.tryParse(item['price'].toString()) * 100 / 115;
       totalAmount += price * double.tryParse(item['qty'].toString());
 
-      itemWidgets.add(
-          Container(
-
-              width: printWidth * 3,
-              padding: const EdgeInsets.all(1.0),
-              decoration: const BoxDecoration(
-                border: Border(),
-                color: Colors.white,
-              ),
-
-              child: ListView(
-                  shrinkWrap: true,
-                  children: [
-                    Container(
-                      width: printWidth * 3,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('$arabic $addOnArabic',
-                                  // textDirection: TextDirection.rtl,
-                                  style: const TextStyle(
-                                    fontFamily: 'GE Dinar One Medium',
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Text('$english $addON',
-                                  // textDirection: TextDirection.rtl,
-                                  style: TextStyle(
-                                    fontFamily: 'GE Dinar One Medium',
-                                    fontSize: fontSize,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.black,
-                                  ),
-                                ),
-
-                              ],
+      itemWidgets1.add(Container(
+          width: printWidth * 3,
+          padding: const EdgeInsets.all(1.0),
+          decoration: const BoxDecoration(
+            border: Border(),
+            color: Colors.white,
+          ),
+          child: ListView(
+              shrinkWrap: true,
+              children: [
+                Container(
+                  width: printWidth * 3,
+                  child: Row(
+                    mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('$arabic $addOnArabic',
+                              // textDirection: TextDirection.rtl,
+                              style: TextStyle(
+                                fontFamily: 'GE Dinar One Medium',
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-
-                          // const SizedBox(width:5),
-
-                          Container(
-                            width: 45,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Text('${arabicNumber.convert(double.tryParse(
-                                //     item['qty'].toString()).toStringAsFixed(
-                                //     2))}',
-                                //   style: TextStyle(
-                                //       fontFamily: 'GE Dinar One Medium',
-                                //       color: Colors.black,
-                                //       fontSize: fontSize + 2,
-                                //       fontWeight: FontWeight.w600),
-                                // ),
-                                Text('${double.tryParse(item['qty']
-                                    .toString())}',
-                                  style: TextStyle(
-                                      fontFamily: 'GE Dinar One Medium',
-                                      color: Colors.black,
-                                      fontSize: fontSize,
-                                      fontWeight: FontWeight.w600),
-                                ),
-
-                              ],
+                            Text('$english $addON',
+                              // textDirection: TextDirection.rtl,
+                              style: TextStyle(
+                                fontFamily: 'GE Dinar One Medium',
+                                fontSize: fontSize,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                          Container(
-                            width: 45,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Text('${arabicNumber.convert(price
-                                //     .toStringAsFixed(2))} ',
-                                //   style: TextStyle(
-                                //       fontFamily: 'GE Dinar One Medium',
-                                //       color: Colors.black,
-                                //       fontSize: fontSize + 2,
-                                //       fontWeight: FontWeight.w600),
-                                // ),
-                                Text('${price.toStringAsFixed(2)} ',
-                                  style: TextStyle(
-                                      fontFamily: 'GE Dinar One Medium',
-                                      color: Colors.black,
-                                      fontSize: fontSize,
-                                      fontWeight: FontWeight.w600),
-                                ),
 
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: 45,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Text('${arabicNumber.convert(vat
-                                //     .toStringAsFixed(2))}',
-                                //   style: TextStyle(
-                                //       fontFamily: 'GE Dinar One Medium',
-                                //       color: Colors.black,
-                                //       fontSize: fontSize + 2,
-                                //       fontWeight: FontWeight.w600),
-                                // ),
-                                Text('${vat.toStringAsFixed(2)}',
-                                  style: TextStyle(
-                                      fontFamily: 'GE Dinar One Medium',
-                                      color: Colors.black,
-                                      fontSize: fontSize,
-                                      fontWeight: FontWeight.w600),
-                                ),
-
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: 50,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Text('${arabicNumber.convert(total
-                                //     .toStringAsFixed(2))}',
-                                //   style: TextStyle(
-                                //       fontFamily: 'GE Dinar One Medium',
-                                //       color: Colors.black,
-                                //       fontSize: fontSize + 2,
-                                //       fontWeight: FontWeight.w600),
-                                // ),
-                                Text('${total.toStringAsFixed(2)}',
-                                  style: TextStyle(
-                                      fontFamily: 'GE Dinar One Medium',
-                                      color: Colors.black,
-                                      fontSize: fontSize,
-                                      fontWeight: FontWeight.w600),
-                                ),
-
-                              ],
-                            ),
-                          ),
-
-
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    // Text("${item['pdtname']} $addON",
-                    //   textDirection: TextDirection.ltr,
-                    //   style: const TextStyle(
-                    //     fontSize: 14,
-                    //     color: Colors.black,
-                    //   ),
-                    // ),
+                      // const SizedBox(width:5),
+                      Container(
+                        width: 45,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
 
-                  ]
-              )));
+                            Text('${double.tryParse(item['qty']
+                                .toString())}',
+                              style: TextStyle(
+                                  fontFamily: 'GE Dinar One Medium',
+                                  color: Colors.black,
+                                  fontSize: fontSize,
+                                  fontWeight: FontWeight.w600),
+                            ),
+
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: 45,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+
+                            Text('${price.toStringAsFixed(2)} ',
+                              style: TextStyle(
+                                  fontFamily: 'GE Dinar One Medium',
+                                  color: Colors.black,
+                                  fontSize: fontSize,
+                                  fontWeight: FontWeight.w600),
+                            ),
+
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: 45,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+
+                            Text('${vat.toStringAsFixed(2)}',
+                              style: TextStyle(
+                                  fontFamily: 'GE Dinar One Medium',
+                                  color: Colors.black,
+                                  fontSize: fontSize,
+                                  fontWeight: FontWeight.w600),
+                            ),
+
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: 50,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+
+                            Text('${total.toStringAsFixed(2)}',
+                              style: TextStyle(
+                                  fontFamily: 'GE Dinar One Medium',
+                                  color: Colors.black,
+                                  fontSize: fontSize,
+                                  fontWeight: FontWeight.w600),
+                            ),
+
+                          ],
+                        ),
+                      ),
+
+
+                    ],
+                  ),
+
+                ),
+              ]
+          )
+      ));
 
 
       itemTotal += (totalAmount * ((100 + gst) / 100) -
@@ -783,23 +720,12 @@ class _ViewInvoiceState extends State<ViewInvoice> {
       itemTax += (totalAmount * gst / 100).toStringAsFixed(2);
     }
 
-    itemWidgets.add(Container(
-        padding: const EdgeInsets.all(1.0),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-        ),
-        child: Center(
-            child: Text('-------------------------------------------',
-              style: TextStyle(
-                  color: Colors.black, fontSize: printWidth * .25),))),);
+
 
 
     var capturedImage2 = await screenshotController
         .captureFromWidget(Container(
       width: printWidth * 3,
-
-
-
       child: ListView.builder(
           shrinkWrap: true,
           itemCount: itemWidgets.length,
@@ -807,12 +733,62 @@ class _ViewInvoiceState extends State<ViewInvoice> {
             return itemWidgets[index];
           }),
     ));
-
     final im.Image image2 = im.decodeImage(capturedImage2);
     bytes += generator.image(image2);
-    bytes += generator.feed(2);
+
+    var capturedImage20 = await screenshotController
+        .captureFromWidget(Container(
+      width: printWidth * 3,
+      child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: itemWidgets1.length,
+          itemBuilder: (context, index) {
+            return itemWidgets1[index];
+          }),
+    ));
+    final im.Image image20 = im.decodeImage(capturedImage20);
+    bytes += generator.image(image20);
+    itemWidgets1=[];
 
 
+    var capturedImage15= await    screenshotController
+        .captureFromWidget(Container(
+      color: Colors.white,
+      width: printWidth*3,
+      height: 120,
+      child:Column(
+        children: [
+          Container(
+              padding: const EdgeInsets.all(1.0),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+              ),
+              child:  Center(child: Text('-------------------------------------------',
+                style: TextStyle(color: Colors.black,fontSize: printWidth*.25),))),
+          Container(
+            padding: const EdgeInsets.all(1.0),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            child:     Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Total Return Amount - الإجمالي     :  ',style:  TextStyle(color: Colors.black,fontSize: fontSize+4,fontWeight: FontWeight.w600),),
+                Text(returnTotal.toStringAsFixed(2),style:  TextStyle(color: Colors.black,fontSize: fontSize+4,fontWeight: FontWeight.w600),),
+              ],
+            ),),
+          Container(
+              padding: const EdgeInsets.all(1.0),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+              ),
+              child:  Center(child: Text('-------------------------------------------',
+                style: TextStyle(color: Colors.black,fontSize: printWidth*.25),))),
+        ],
+      ),));
+
+    final im.Image image15 = im.decodeImage(capturedImage15);
+    bytes += generator.image(image15);
 
     final im.Image image50 = im.decodeImage(footerImage);
     bytes += generator.image(image50);
@@ -833,8 +809,6 @@ class _ViewInvoiceState extends State<ViewInvoice> {
         .seconds);
 
   }
-
-
 
 
   setSearchParam(String caseNumber) {
@@ -942,6 +916,8 @@ class _ViewInvoiceState extends State<ViewInvoice> {
                         onPressed: () async {
 
                           print(delivery+'hhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
+                          print("returnItems++++++++++++++++++++++++");
+                          print(returnItems);
 
                           if(returnItems.isNotEmpty){
                             DocumentSnapshot
@@ -984,12 +960,9 @@ class _ViewInvoiceState extends State<ViewInvoice> {
                               'token': token,
                               'currentBranchId':currentBranchId,
                               'search':setSearchParam(returns.toString()),
-                              'currentBranchPhNo':
-                              currentBranchPhNo,
-                              'currentBranchAddress':
-                              currentBranchAddress,
-                              'currentBranchArabic':
-                              currentBranchArabic,
+                              'currentBranchPhNo': currentBranchPhNo,
+                              'currentBranchAddress': currentBranchAddress,
+                              'currentBranchArabic': currentBranchArabic,
                               'deliveryCharge': double.tryParse(delivery) ?? 0,
                               'table': selectedTable,
                               'billItems': returnItems,
@@ -997,7 +970,8 @@ class _ViewInvoiceState extends State<ViewInvoice> {
                               'totalAmount': returnTotal * 100 / (100 + gst),
                               'tax': returnTotal * gst / (100 + gst),
                               'grandTotal': returnTotal,
-                              'currentUserId':currentUserId
+                              'currentUserId':currentUserId,
+                              // "returned":true
                             });
                             blue?  await showDialog(
                                 barrierDismissible: false,
@@ -1019,19 +993,17 @@ class _ViewInvoiceState extends State<ViewInvoice> {
                                     discountPrice:  double.tryParse(discount.toString()) ?? 0,
                                     invoiceNo: invoice.id.toString(),
 
-                                      cashPaid:double.tryParse(invoice.get('paidCash').toString())??0,
-                                      bankPaid:double.tryParse(invoice.get('paidBank').toString())??0,
-                                      balance:double.tryParse(invoice.get('balance').toString())??0,
+                                    cashPaid:double.tryParse(invoice.get('paidCash').toString())??0,
+                                    bankPaid:double.tryParse(invoice.get('paidBank').toString())??0,
+                                    balance:double.tryParse(invoice.get('balance').toString())??0,
                                   );
                                 }):
-                           await efg(int.tryParse(invoice.id.toString()), double.tryParse(invoice.get('discount').toString())
-                               ,returns,returnItems, invoice.get('billItems'), token,double.tryParse(delivery) ?? 0,
-                               invoice.get('salesDate').toDate(),double.tryParse(invoice.get('paidCash').toString())??0,
-                             double.tryParse(invoice.get('paidBank').toString())??0,
-                             double.tryParse(invoice.get('balance').toString())??0,);
+                            await efg(int.tryParse(invoice.id.toString()), double.tryParse(invoice.get('discount').toString())
+                              ,returns,returnItems, invoice.get('billItems'), token,double.tryParse(delivery) ?? 0,
+                              invoice.get('salesDate').toDate(),double.tryParse(invoice.get('paidCash').toString())??0,
+                              double.tryParse(invoice.get('paidBank').toString())??0,
+                              double.tryParse(invoice.get('balance').toString())??0,);
 
-
-                            // Navigator.pop(context);
                             showUploadMessage(context, 'Return Successfully...');
 
                           }else{
@@ -1040,7 +1012,9 @@ class _ViewInvoiceState extends State<ViewInvoice> {
                         },
                         child: const Text('Return')),
                     const SizedBox(width: 20,),
-                    ElevatedButton(onPressed: () {}, child: const Text('Cancel')),
+                    ElevatedButton(onPressed: () {
+                      Navigator.of(context).pop();
+                    }, child: const Text('Cancel')),
                   ]),
                   Container(
                     height: 40,
@@ -1107,13 +1081,15 @@ class _ViewInvoiceState extends State<ViewInvoice> {
                           shrinkWrap: true,
                           itemCount: invoice==null?0:invoice.get('billItems').length ,
                           itemBuilder: (context, index) {
-                            var items = invoice.get('billItems');
-                            String item = items[index]['pdtname'];
-                            double addOnPrice = items[index]['addOnPrice'];
-                            List addOns = items[index]['addOns'];
+                            print('hereeeee');
+                            print(invoice.get('billItems')[index]);
+                            Map items = invoice.get('billItems')[index];
+                            String item = items['pdtname'];
+                            double addOnPrice = items['addOnPrice'];
+                            List addOns = items['addOns'];
 
                             return itemRow(
-                              item: items[index],
+                              item: items,
                               index: index,
 
                               calculate: calculate,
@@ -1253,10 +1229,10 @@ class _itemRowState extends State<itemRow> {
   void initState() {
     // print('   widget.item      ===========$widget.item');
     // print(itemRow);
-
+    checked=containsMap(widget.item);
     index = widget.index;
     item = widget.item['pdtname'];
-    price = (widget.item['price']+widget.item['addOnPrice']).toString();
+    price = (widget.item['price']+widget.item['addOnPrice']).toStringAsFixed(2);
     qty = widget.item['qty'].toString();
     _controller = TextEditingController(text: widget.item['qty'].toString());
 
@@ -1266,6 +1242,8 @@ class _itemRowState extends State<itemRow> {
 
   @override
   Widget build(BuildContext context) {
+    print('returnItems');
+    print(returnItems);
     return Column(
       children: [
         Row(
@@ -1368,28 +1346,24 @@ class _itemRowState extends State<itemRow> {
                         item['qty']=double.tryParse(_controller.text);
 
 
-                          setState(() {
-                           // checked = value;
+                        setState(() {
+                          // checked = value;
                           if (value) {
-                            print(returnItems);
-                            print(returnItems.indexOf(item));
-                            print(" if value");
-                            print(value);
-                            returnItems.add(item);
-                            print(returnItems);
-                          } else {
-                            print("else");
-                            print(returnItems);
+                            print('item');
                             print(item);
-                            print(returnItems.indexOf(item));
-                            print("else value");
-                            print(value);
-                            returnItems.removeAt(returnItems.indexOf(item)+1);
-                            print(returnItems);
-                            print("${returnItems.length}returnItems length");
+                            returnItems.add(item);
+
+                          } else {
+                            int index2 = returnItems.indexWhere((map) {
+                              return
+                                  map['category'] == item['category'] &&
+                                  map['pdtname'] == item['pdtname'];
+                            });
+                            returnItems.removeAt(index2);
+
                           }
                           widget.calculate();
-                          });
+                        });
                       })
               ),
             )
@@ -1399,4 +1373,13 @@ class _itemRowState extends State<itemRow> {
       ],
     );
   }
+}
+
+bool containsMap(Map<String, dynamic> targetMap) {
+  for (var map in returnItems) {
+    if (map['pdtname'] == targetMap['pdtname'] ) {
+      return true;
+    }
+  }
+  return false;
 }

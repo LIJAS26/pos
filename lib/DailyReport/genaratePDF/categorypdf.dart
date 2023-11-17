@@ -29,10 +29,6 @@ class CategoryPdfPage {
     pdf.addPage(MultiPage(
         build: (context) => [
 
-          // pw.Column(
-          //     crossAxisAlignment: pw.CrossAxisAlignment.start,
-          //     children:[
-//START
           pw.Container(
             height: 100,
             width: 100,
@@ -43,14 +39,15 @@ class CategoryPdfPage {
                 ]
             ),
           ),
-//STUDENT DETAIL
+          pw.Text('Category Report',
+              style: pw.TextStyle(
+                  fontSize: 15, fontWeight: FontWeight.bold)),
           pw.Row(
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               children: [
 
                 pw.Container(
                   width: 250,
-                  // color: PdfColors.green,
                   child:  pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       mainAxisAlignment: pw.MainAxisAlignment.start,
@@ -117,7 +114,7 @@ class CategoryPdfPage {
                   return [
                     item['name'],
                     item['qty'],
-                    total
+                    total.toStringAsFixed(2)
 
 
 
@@ -133,7 +130,7 @@ class CategoryPdfPage {
               mainAxisAlignment: pw.MainAxisAlignment.end,
               children: [
 
-                pw.Container(width: 120,child: pw.Text('Grand Total : $gdtotal',style: pw.TextStyle(fontSize: 11,)),)
+                pw.Container(width: 120,child: pw.Text('Grand Total : ${gdtotal.toStringAsFixed(2)}',style: pw.TextStyle(fontSize: 11,)),)
               ]
           ),
 

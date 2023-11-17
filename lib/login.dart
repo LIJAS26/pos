@@ -33,8 +33,8 @@ class _LoginState extends State<Login> {
     // _getDevicelist();
     // testPrint();
     super.initState();
-    // userName = TextEditingController();
-    // passWord = TextEditingController();
+    userName = TextEditingController();
+    passWord = TextEditingController();
 
     userName = TextEditingController(text: 'meta@gmail.com');
     passWord = TextEditingController(text: "123456");
@@ -68,62 +68,7 @@ class _LoginState extends State<Login> {
       });
     }
   }
-  // testPrint() async {
-  //   while(!connected){
-  //     await Future.delayed(Duration(seconds: 1));
-  //     print("while");
-  //   }
-  //   final CapabilityProfile profile = await CapabilityProfile.load(
-  //     // name: "TP806L"
-  //          );
-  //   Utf8Codec utf8codec=const Utf8Codec(allowMalformed: true);
-  //
-  //
-  //   final generator = Generator(PaperSize.mm80, profile,
-  //       codec:utf8codec
-  //   );
-  //
-  //   List<int> bytes = [];
-  //   List<int> utf8Bytes = utf8.encode('منتج');
-  //   String arabicText = 'منتج';
-  //
-  //
-  //   bytes += generator.text('منتج', styles: PosStyles(codeTable: 'PC864(Arabic)'));
-  //   bytes += generator.text('منتج', styles: PosStyles(codeTable: '(Arabic)'));
-  //   bytes += generator.text('منتج', styles: PosStyles(codeTable: 'PC1001'));
-  //   bytes += generator.text('منتج', styles: PosStyles(codeTable: 'PC1001(Arabic)'));
-  //   bytes += generator.text(arabicText, styles: PosStyles(codeTable: 'CP1256'));
-  //   // bytes += generator.text('منتج', styles: PosStyles(codeTable: 'PC863'));
-  //   // bytes += generator.text('منتج', styles: PosStyles(codeTable: 'PC865'));
-  //   // bytes += generator.text('منتج', styles: PosStyles(codeTable: 'PC857'));
-  //   // bytes += generator.text('منتج', styles: PosStyles(codeTable: 'PC737'));
-  //   // bytes += generator.text('منتج', styles: PosStyles(codeTable: 'ISO8859-7'));
-  //   // bytes += generator.text('منتج', styles: PosStyles(codeTable: 'WPC1252'));
-  //   // bytes += generator.text('منتج', styles: PosStyles(codeTable: 'PC866'));
-  //   // bytes += generator.text('منتج', styles: PosStyles(codeTable: 'PC852'));
-  //   // bytes += generator.text('منتج', styles: PosStyles(codeTable: 'PC858'));
-  //   // bytes += generator.text('منتج', styles: PosStyles(codeTable: 'KU42'));
-  //   // bytes += generator.text('منتج', styles: PosStyles(codeTable: 'PC857'));
-  //   // bytes += generator.text('منتج', styles: PosStyles(codeTable: 'PC720'));
-  //   // bytes += generator.text('منتج', styles: PosStyles(codeTable: 'PC864'));
-  //   // bytes += generator.text('منتج', styles: PosStyles(codeTable: 'WPC1256'));
-  //   // bytes += generator.text('منتج', styles: PosStyles(codeTable: 'ISO-8859-6'));
-  //
-  //   // String arabicText = 'منتج';
-  //   // // List<int> pc864Bytes = latin1.encode(arabicText); // Use PC864 encoding
-  //   // List<int> pc1001Bytes = utf8.encode(arabicText);  // Use PC1001 encoding
-  //   //
-  //   //
-  //   // // bytes += generator.textEncoded(pc864Bytes, styles: PosStyles(codeTable: 'PC864'));
-  //   // // Or use PC1001 encoding
-  //   //  bytes += generator.textEncoded(pc1001Bytes, styles: PosStyles(codeTable: 'PC1001'));
-  //
-  //   // bytes += generator.text(,
-  //   //     styles: PosStyles(codeTable: "PC864"));
-  //   bytes += generator.feed(2);
-  //   bytes += generator.cut();
-  //   await flutterUsbPrinter.write(Uint8List.fromList(bytes));
-  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,13 +79,13 @@ class _LoginState extends State<Login> {
           width: double.infinity,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/faraula_background.png"),fit: BoxFit.cover
+              image: AssetImage("assets/point plus Background POS.jpg"),fit: BoxFit.cover
             )
           ),
           child: Row(
             children: [
               Container(
-                width: MediaQuery.of(context).size.width*0.45,
+                width: MediaQuery.of(context).size.width*0.58,
 
               ),
               Expanded(
@@ -196,7 +141,7 @@ class _LoginState extends State<Login> {
                                             height: 150,
                                             decoration: const BoxDecoration(
                                               image: DecorationImage(
-                                                image: AssetImage("assets/Point Plus Logo app.png")
+                                                image: AssetImage("assets/point plus app logo.jpg")
                                               )
                                             ),
                                           ),
@@ -420,7 +365,7 @@ class _LoginState extends State<Login> {
                                                 )
                                             ),),
                                         ),
-                                        Text('version :0.0.6',style: TextStyle(fontSize: 12,color: Colors.grey),),
+                                        Text('version :0.1.4',style: TextStyle(fontSize: 12,color: Colors.grey),),
                                       ],
                                     ),
                                   ),
@@ -437,9 +382,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              Container(
-                width: MediaQuery.of(context).size.width*0.15,
-
+              Container(width: MediaQuery.of(context).size.width*0.05,
               ),
             ],
           ),

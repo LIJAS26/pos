@@ -31,10 +31,6 @@ class IncredinetPdfPage {
     pdf.addPage(MultiPage(
         build: (context) => [
 
-          // pw.Column(
-          //     crossAxisAlignment: pw.CrossAxisAlignment.start,
-          //     children:[
-//START
           pw.Container(
             height: 100,
             width: 100,
@@ -45,14 +41,15 @@ class IncredinetPdfPage {
                 ]
             ),
           ),
-//STUDENT DETAIL
+          pw.Text('Incredient Report',
+              style: pw.TextStyle(
+                  fontSize: 15, fontWeight: FontWeight.bold)),
           pw.Row(
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               children: [
 
                 pw.Container(
                   width: 250,
-                  // color: PdfColors.green,
                   child:  pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       mainAxisAlignment: pw.MainAxisAlignment.start,
@@ -98,7 +95,6 @@ class IncredinetPdfPage {
 
           pw.SizedBox(height: 30),
 
-          //table with list.generate
 
           pw.Container(
             child:  pw.Table.fromTextArray(
@@ -106,20 +102,18 @@ class IncredinetPdfPage {
                 headers: [
                   'Incredient Name',
                   'Remaining Quantity'
-
                 ],
-
                 data:
-                List.generate(invoice.ing.length, (index) {
-                  final item =invoice.ing[index];
+                List.generate(invoice.ing.length??0, (index) {
+                  final item =invoice.ing[index]??0;
                   print("${item}*************************");
                   // double total=double.tryParse(item["price"].toString())??0*double.tryParse(item["quantity"].toString())??0;
                   double total=double.tryParse(item["quantity"].toString())??0;
                   gdtotal+=total??0;
                   print(item.toString()+'                    $index');
                   return [
-                    item['ingredient'],
-                   item["quantity"]
+                    item['ingredient']??"",
+                   item["quantity"]??0
 
 
 

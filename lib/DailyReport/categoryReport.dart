@@ -1,4 +1,5 @@
 
+import 'package:awafi_pos/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -146,7 +147,7 @@ class _CategoryReportState extends State<CategoryReport> {
       appBar: AppBar(
         title: Text("Category Report"),
         centerTitle: true,
-        backgroundColor: Color(0xffBF0F1B),
+        backgroundColor: default_color,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 15),
@@ -286,7 +287,7 @@ class _CategoryReportState extends State<CategoryReport> {
                               child: Center(
                                 child: Text(
                                   // ' ${(a[index]["qty"]*a[index]["price"]).toString()}',
-                                  ' ${(a[index]["price"]).toString()}',
+                                  ' ${(a[index]["price"]).toStringAsFixed(2)}',
                                   style: FlutterFlowTheme.bodyText2.override(
                                     fontFamily: 'Lexend Deca',
                                     color: Color(0xFF57636C),

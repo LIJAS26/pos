@@ -16,7 +16,7 @@ import 'flutter_flow/flutter_flow_theme.dart';
 import 'main.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
-
+List offCategoryLowercase=[];
 int qty=0;
 Map <String,dynamic>addOn={};
 List newAddOn=[];
@@ -49,22 +49,8 @@ class _ProductCardState extends State<ProductCard> {
   final UserService _userService = UserService();
   final ShoppingBagService _shoppingBagService = ShoppingBagService();
   int counter = 0;
-  // Future<void> compressImage(File file) async {
-  //   final result = await FlutterImageCompress.compressWithFile(
-  //     widget.imageUrl,
-  //     quality: 50,
-  //   );
-  //
-  //   // The compressed image is now stored in the 'result' variable.
-  //   // You can use it however you like, such as uploading it to a server.
-  // }
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       counter++;
     });
   }
@@ -74,20 +60,18 @@ class _ProductCardState extends State<ProductCard> {
   int _itemCount = 1;
   bool userLiked;
   bool exist =false;
- NewProductsRecord product;
+  NewProductsRecord product;
   Map<String, dynamic> currentItem;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     offCatLower();
-    print("offCategoryLowercase--------------------------------------");
-    print(offCategoryLowercase);
     // product=widget.gridViewProductsRecord;
-if(counter==0){
-  qty=counter;
+    if(counter==0){
+      qty=counter;
 
-}
+    }
 
   }
   bucketExistence() {
@@ -116,8 +100,9 @@ if(counter==0){
       }
     }
   }
-  List offCategoryLowercase=[];
+
   offCatLower(){
+    offCategoryLowercase=[];
     for(var i in offerCategory){
       offCategoryLowercase.add(i.toLowerCase());
     }
@@ -159,216 +144,215 @@ if(counter==0){
   Widget build(BuildContext context) {
     return
       GestureDetector(
-      onTap: () async {
-       if(widget.variants.length==0){
+        onTap: () async {
+          if(widget.variants.length==0){
 
-         // items=await   showDialog(
-         //   context: context,
-         //   builder: (BuildContext context) {
-         //
-         //     return StatefulBuilder(
-         //       builder: (context,setState)
-         //        {
-         //          return AlertDialog(
-         //            title: Container(
-         //              padding: const EdgeInsets.only(left: 20,right: 20),
-         //              height: 100,
-         //              child:  Column(
-         //                children: [
-         //                  const SizedBox(height: 10,),
-         //                  const Text("SELECT QUANTITY",style: TextStyle(
-         //                      fontSize: 12
-         //                  ),),
-         //                  const SizedBox(height: 20,),
-         //                  Expanded(
-         //                    child: Container(
-         //                      padding: const EdgeInsets.all(3),
-         //
-         //                      decoration: BoxDecoration(
-         //                        borderRadius: BorderRadius.circular(5),
-         //                        color: Colors.black,),
-         //                      child: Row(
-         //                        children: [
-         //                          Expanded(
-         //                            child: InkWell(
-         //                                onTap: () {
-         //                                  if(_itemCount>1) {
-         //                                    setState(() =>
-         //                                    _itemCount--);
-         //                                  }
-         //                                  },
-         //                                child: const SizedBox (
-         //                                  width: 30,
-         //                                  child: Icon(
-         //                                    Icons.remove,
-         //                                    color: Colors.white,
-         //                                    size: 16,
-         //                                  ),
-         //                                )),
-         //                          ),
-         //                          Container(
-         //                            width: 60,
-         //                            decoration: BoxDecoration(
-         //                                borderRadius: BorderRadius.circular(3),
-         //                                color: Colors.white),
-         //                            child: Center(
-         //                              child: Text(
-         //                                _itemCount.toString(),
-         //                                style: const TextStyle(color: Colors.black, fontSize: 16),
-         //                              ),
-         //                            ),
-         //                          ),
-         //                          Expanded(
-         //                            child: InkWell(
-         //                                onTap: () {
-         //                                  setState(()=>_itemCount++);
-         //                                },
-         //                                child: const SizedBox(
-         //                                  width: 30,
-         //                                  child: Icon(
-         //                                    Icons.add,
-         //                                    color: Colors.white,
-         //                                    size: 16,
-         //                                  ),
-         //                                )),
-         //                          ),
-         //                        ],
-         //                      ),
-         //                    ),
-         //                  ),
-         //                ],
-         //              ),
-         //            ),
-         //
-         //            actions: <Widget>[
-         //              TextButton(
-         //                onPressed: () {
-         //
-         //                  Navigator.pop(context);
-         //                  },
-         //                child: const Text('Cancel'),
-         //              ),
-         //              TextButton(
-         //                onPressed: ()  async {
-         //
-         //
-         //
-         //
-         //             items={
-         //                    'pdtname':widget.name,
-         //                    'price':widget.discountPrice,
-         //                    'qty':_itemCount,
-         //               'orderTime' :DateTime.now(),
-         //
-         //                  };
-         //
-         //
-         //
-         //
-         //                FirebaseFirestore.instance.collection('tables').doc(selectedTable).update(
-         //
-         //                    {
-         //                     'items':FieldValue.arrayUnion([items])
-         //
-         //                   });
-         //
-         //
-         //                  Navigator.pop(context, items);},
-         //
-         //                child: const Text('OK'),
-         //              ),
-         //            ],
-         //          );
-         //        }
-         //      );
-         //   }
-         // );
-         // _incrementCounter();
+            // items=await   showDialog(
+            //   context: context,
+            //   builder: (BuildContext context) {
+            //
+            //     return StatefulBuilder(
+            //       builder: (context,setState)
+            //        {
+            //          return AlertDialog(
+            //            title: Container(
+            //              padding: const EdgeInsets.only(left: 20,right: 20),
+            //              height: 100,
+            //              child:  Column(
+            //                children: [
+            //                  const SizedBox(height: 10,),
+            //                  const Text("SELECT QUANTITY",style: TextStyle(
+            //                      fontSize: 12
+            //                  ),),
+            //                  const SizedBox(height: 20,),
+            //                  Expanded(
+            //                    child: Container(
+            //                      padding: const EdgeInsets.all(3),
+            //
+            //                      decoration: BoxDecoration(
+            //                        borderRadius: BorderRadius.circular(5),
+            //                        color: Colors.black,),
+            //                      child: Row(
+            //                        children: [
+            //                          Expanded(
+            //                            child: InkWell(
+            //                                onTap: () {
+            //                                  if(_itemCount>1) {
+            //                                    setState(() =>
+            //                                    _itemCount--);
+            //                                  }
+            //                                  },
+            //                                child: const SizedBox (
+            //                                  width: 30,
+            //                                  child: Icon(
+            //                                    Icons.remove,
+            //                                    color: Colors.white,
+            //                                    size: 16,
+            //                                  ),
+            //                                )),
+            //                          ),
+            //                          Container(
+            //                            width: 60,
+            //                            decoration: BoxDecoration(
+            //                                borderRadius: BorderRadius.circular(3),
+            //                                color: Colors.white),
+            //                            child: Center(
+            //                              child: Text(
+            //                                _itemCount.toString(),
+            //                                style: const TextStyle(color: Colors.black, fontSize: 16),
+            //                              ),
+            //                            ),
+            //                          ),
+            //                          Expanded(
+            //                            child: InkWell(
+            //                                onTap: () {
+            //                                  setState(()=>_itemCount++);
+            //                                },
+            //                                child: const SizedBox(
+            //                                  width: 30,
+            //                                  child: Icon(
+            //                                    Icons.add,
+            //                                    color: Colors.white,
+            //                                    size: 16,
+            //                                  ),
+            //                                )),
+            //                          ),
+            //                        ],
+            //                      ),
+            //                    ),
+            //                  ),
+            //                ],
+            //              ),
+            //            ),
+            //
+            //            actions: <Widget>[
+            //              TextButton(
+            //                onPressed: () {
+            //
+            //                  Navigator.pop(context);
+            //                  },
+            //                child: const Text('Cancel'),
+            //              ),
+            //              TextButton(
+            //                onPressed: ()  async {
+            //
+            //
+            //
+            //
+            //             items={
+            //                    'pdtname':widget.name,
+            //                    'price':widget.discountPrice,
+            //                    'qty':_itemCount,
+            //               'orderTime' :DateTime.now(),
+            //
+            //                  };
+            //
+            //
+            //
+            //
+            //                FirebaseFirestore.instance.collection('tables').doc(selectedTable).update(
+            //
+            //                    {
+            //                     'items':FieldValue.arrayUnion([items])
+            //
+            //                   });
+            //
+            //
+            //                  Navigator.pop(context, items);},
+            //
+            //                child: const Text('OK'),
+            //              ),
+            //            ],
+            //          );
+            //        }
+            //      );
+            //   }
+            // );
+            // _incrementCounter();
 
-         bool notInCart =true;
-         currentProduct=widget.name;
-         for(Map<String,dynamic> doc in itemList){
-           Map item =doc;
-           int index=itemList.indexOf(doc);
+            bool notInCart =true;
+            currentProduct=widget.name;
+            for(Map<String,dynamic> doc in itemList){
+              Map item =doc;
+              int index=itemList.indexOf(doc);
 
 
-           // if(item['pdtname']==widget.name && item['price']==widget.discountPrice
-           //     && item['addOns'].toString()==widget.addOns.toString()){
-           if(item['pdtname']==widget.name &&
-               item['price']== (((offCategoryLowercase.contains(widget.category.toLowerCase()))&&offer)
-                   ?widget.discountPrice*(1-(offerValue/100)):widget.discountPrice)
-               && item['addOns'].toString()==widget.addOns.toString()){
-             print('saaaaaaaaaaaaaaaaa');
-             print(item);
-             print('111111111');
-             notInCart=false;
+              if(item['pdtname']==widget.name &&
+                  item['price']== (((offCategoryLowercase.contains(widget.category.toLowerCase()))&&offer)
+                      ?widget.discountPrice*(1-(offerValue/100)):widget.discountPrice)
+                  && item['addOns'].toString()==widget.addOns.toString()){
+                print('111111111');
+                notInCart=false;
 //ne
-             await itemList.removeAt(index);
-                   item['qty']=int.tryParse(item['qty'].toString())+1;
-             print("item['ingredients']__________________________");
-                   print(item["ingredients"]);
-                  await itemList.insert(index, item);
-                 await  FirebaseFirestore.instance.collection('tables')
-                       .doc(currentBranchId)
-                       .collection('tables')
-                       .doc(selectedTable).update(
-                       {
-                         'items':itemList
-                       });
+                await itemList.removeAt(index);
+                item['qty']=int.tryParse(item['qty'].toString())+1;
+                // item['return']=false;
+                print("item['ingredients']__________________________");
+                print(item["ingredients"]);
+                await itemList.insert(index, item);
+                await  FirebaseFirestore.instance.collection('tables')
+                    .doc(currentBranchId)
+                    .collection('tables')
+                    .doc(selectedTable).update(
+                    {
+                      'items':itemList
+                    });
 
-                 setState(() {
+                setState(() {
 
-                 });
+                });
 
 
-           }
+              }
 
-         }
-         if(notInCart){
-           print('22222222');
-           FirebaseFirestore.instance.collection('tables')
-               .doc(currentBranchId)
-               .collection('tables')
-               .doc(selectedTable).update(
+            }
+            if(notInCart){
+              print('22222222');
+              FirebaseFirestore.instance.collection('tables')
+                  .doc(currentBranchId)
+                  .collection('tables')
+                  .doc(selectedTable).update(
 
-               {
-                 'items':FieldValue.arrayUnion([{
-                   'pdtname':widget.name,
-                   'arabicName':widget.arabicName,
-                   'price':((offCategoryLowercase.contains(widget.category.toLowerCase()))&&offer)?widget.discountPrice*(1-(offerValue/100)):widget.discountPrice,
-                   'discount':((offCategoryLowercase.contains(widget.category.toLowerCase()))&&offer)?widget.discountPrice*(offerValue/100):0,
-                   'qty':1,
-                   'addOns':[],
-                   'addOnArabic':[],
-                   'addOnPrice':0.0,
-                   'variants':widget.variants,
-                   'category':widget.category,
-                   'ingredients':widget.ingredients
-                 }])
+                  {
+                    'items':FieldValue.arrayUnion([{
+                      'pdtname':widget.name,
+                      'arabicName':widget.arabicName,
+                      'price':((offCategoryLowercase.contains(widget.category.toLowerCase()))&&offer)?widget.discountPrice*(1-(offerValue/100)):widget.discountPrice,
+                      'discount':((offCategoryLowercase.contains(widget.category.toLowerCase()))&&offer)?widget.discountPrice*(offerValue/100):0,
+                      'qty':1,
+                      'addOns':[],
+                      'addOnArabic':[],
+                      'addOnPrice':0.0,
+                      'variants':widget.variants,
+                      'category':widget.category,
+                      'ingredients':widget.ingredients,
+                       // 'return':false
+                    }])
 
-               });
-           addOn[widget.name]=widget.addOns;
-         }
+                  });
+              addOn[widget.name]=widget.addOns;
+            }
 
-       }
-       else{
-         //ALERT BOX
-         showDialog(
-           context: context,
-           builder: (ctx){
-             return Box(
-                 varList:widget.variants,
-                 discountPrice:widget.discountPrice,
-                 name:widget.name,
-                 arabicName:widget.arabicName,
-                 addOns:widget.addOns,
-                 category: widget.category,
-                 ingredients:widget.ingredients
-             );
-           }
-         );
-       }
-         },
+          }
+          else{
+            //ALERT BOX
+            showDialog(
+                context: context,
+                builder: (ctx){
+                  return Box(
+                      varList:widget.variants,
+                      discountPrice:widget.discountPrice,
+                      name:widget.name,
+                      arabicName:widget.arabicName,
+                      addOns:widget.addOns,
+                      category: widget.category,
+                      ingredients:widget.ingredients,
+                      offCategoryLowercase:offCategoryLowercase
+                  );
+                }
+            );
+          }
+        },
         child:  Card(
           clipBehavior: Clip.antiAliasWithSaveLayer,
           color: FlutterFlowTheme.tertiaryColor,
@@ -376,7 +360,7 @@ if(counter==0){
           child: Container(
             width: MediaQuery.of(context).size.width * 1,
             decoration:
-                const BoxDecoration(
+            const BoxDecoration(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(0),
                 bottomRight: Radius.circular(10),
@@ -410,7 +394,7 @@ if(counter==0){
                         fit: BoxFit.contain,
                         width: 300,
                       )
-                      :Container(
+                          :Container(
                         padding: const EdgeInsets.only(left: 5,right:5,top: 5),
                         child: Container(
                           color: Colors.blueGrey.shade100,
@@ -465,7 +449,7 @@ if(counter==0){
                 //   ),
                 // ),
                 Text(widget.discountPrice
-                            .toString(),
+                    .toString(),
                     style: const TextStyle(
                         color: Color(0xFF33CC33),
                         fontWeight: FontWeight.bold,
@@ -530,7 +514,8 @@ class Box extends StatefulWidget {
   String category;
   List addOns;
   List ingredients;
-   Box({Key key,this.varList,this.name,this.discountPrice,this.arabicName,this.addOns,this.category,this.ingredients}) : super(key: key);
+  List offCategoryLowercase;
+  Box({Key key,this.varList,this.name,this.discountPrice,this.arabicName,this.addOns,this.category,this.ingredients,this.offCategoryLowercase}) : super(key: key);
 
   @override
   _BoxState createState() => _BoxState();
@@ -565,13 +550,13 @@ class _BoxState extends State<Box> {
                     10, 0, 10, 10),
                 child: InkWell(
                   onTap: () async {
-                    log("selected----------------------------------------------");
-                    log(widget.varList[index]['variant']);
 
                     setState(() {
                       selectedIndex=index;
-                      
-                      selectedvariantPrice=double.tryParse(widget.varList[index]['price']);
+
+                      // selectedvariantPrice=double.tryParse(widget.varList[index]['price']);
+                      selectedvariantPrice=((offCategoryLowercase.contains(widget.category.toLowerCase()))&&offer)?double.tryParse(widget.varList[index]['price'].toString())*(1-(offerValue/100)):double.tryParse(widget.varList[index]['price'].toString());
+
                       selectedvariantName=widget.varList[index]['variant'];
                       selectedvariantArName=widget.varList[index]['variantArabic'];
                       print(selectedvariantPrice);
@@ -580,7 +565,6 @@ class _BoxState extends State<Box> {
                       List data=[];
                       data.add(widget.varList[selectedIndex]);
                       selectedVarient=data;
-                      log(selectedVarient.toString()+"                     kkkkkkkk");
 
                     });
 // DocumentSnapshot ingName =
@@ -639,93 +623,93 @@ class _BoxState extends State<Box> {
           ),
           TextButton(
             onPressed: () {
-              log("DONE      *************************************");
-              log(selectedVarient.toString()+'-----------------');
-           if(selectedIndex!=null){
-             print(selectedvariantPrice);
-             bool notInCart =true;
-             currentProduct=widget.name;
-             for(Map<String,dynamic> item in itemList){
-               if(item['pdtname']==widget.name&&item['price']==widget.discountPrice){
-                 print(selectedvariantPrice);
-                 print('TRUE TRUE TRUE TRUE');
-                 notInCart=false;
-                 FirebaseFirestore.instance.collection('tables')
-                     .doc(currentBranchId)
-                     .collection('tables')
-                     .doc(selectedTable).update(
-                     {
-                       'items':FieldValue.arrayRemove([{
-                         'pdtname':'${widget.name} $selectedvariantName',
-                         'arabicName':'${widget.arabicName} $selectedvariantArName',
-                         'price':selectedvariantPrice,
-                         'qty':item['qty'],
-                         'addOns':[],
-                         'addOnArabic':[],
-                         'addOnPrice':0.0,
-                         'category':widget.category,
-                         'ingredients':widget.ingredients,
-                         'variants':selectedVarient,
-                       }])
-                     });
-                 FirebaseFirestore.instance.collection('tables')
-                     .doc(currentBranchId)
-                     .collection('tables')
-                     .doc(selectedTable).update(
-                     {
-                       'items':FieldValue.arrayUnion([{
-                         'pdtname':'${widget.name} $selectedvariantName',
-                         'arabicName':'${widget.arabicName} $selectedvariantArName',
-                         'price':selectedvariantPrice,
-                         'qty':item['qty']+1,
-                         'addOns':[],
-                         'addOnArabic':[],
-                         'addOnPrice':0.0,
-                         'variants':selectedVarient,
-                         'category':widget.category,
-                         'ingredients':widget.ingredients
+
+              if(selectedIndex!=null){
+                print(selectedvariantPrice);
+                bool notInCart =true;
+                currentProduct=widget.name;
+                for(Map<String,dynamic> item in itemList){
+                  if(item['pdtname']==widget.name&&item['price']==widget.discountPrice){
+                    print(selectedvariantPrice);
+                    print('TRUE TRUE TRUE TRUE');
+                    notInCart=false;
+                    FirebaseFirestore.instance.collection('tables')
+                        .doc(currentBranchId)
+                        .collection('tables')
+                        .doc(selectedTable).update(
+                        {
+                          'items':FieldValue.arrayRemove([{
+                            'pdtname':'${widget.name} $selectedvariantName',
+                            'arabicName':'${widget.arabicName} $selectedvariantArName',
+                            'price':selectedvariantPrice,
+                            'qty':item['qty'],
+                            'addOns':[],
+                            'addOnArabic':[],
+                            'addOnPrice':0.0,
+                            'category':widget.category,
+                            'ingredients':widget.ingredients,
+                            'variants':selectedVarient,
+                          }])
+                        });
+                    FirebaseFirestore.instance.collection('tables')
+                        .doc(currentBranchId)
+                        .collection('tables')
+                        .doc(selectedTable).update(
+                        {
+                          'items':FieldValue.arrayUnion([{
+                            'pdtname':'${widget.name} $selectedvariantName',
+                            'arabicName':'${widget.arabicName} $selectedvariantArName',
+                            'price':selectedvariantPrice,
+                            'qty':item['qty']+1,
+                            'addOns':[],
+                            'addOnArabic':[],
+                            'addOnPrice':0.0,
+                            'variants':selectedVarient,
+                            'category':widget.category,
+                            'ingredients':widget.ingredients
 
 
 
 
-                       }])
+                          }])
 
-                     });
-               }
+                        });
+                  }
 
-             }
-             if(notInCart){
-               FirebaseFirestore.instance.collection('tables')
-                   .doc(currentBranchId)
-                   .collection('tables')
-                   .doc(selectedTable).update(
+                }
+                if(notInCart){
+                  FirebaseFirestore.instance.collection('tables')
+                      .doc(currentBranchId)
+                      .collection('tables')
+                      .doc(selectedTable).update(
 
-                   {
-                     'items':FieldValue.arrayUnion([{
-                       'pdtname':'${widget.name} $selectedvariantName',
-                       'arabicName':'${widget.arabicName} $selectedvariantArName',
-                       'price':selectedvariantPrice,
-                       'qty':1,
-                       'addOns':[],
-                       'addOnArabic':[],
-                       'addOnPrice':0.0,
-                       'variants':selectedVarient,
-                       'category':widget.category,
-                       'ingredients':widget.ingredients
-                     }])
+                      {
+                        'items':FieldValue.arrayUnion([{
+                          'pdtname':'${widget.name} $selectedvariantName',
+                          'arabicName':'${widget.arabicName} $selectedvariantArName',
+                          'price':selectedvariantPrice,
+                          'qty':1,
+                          'addOns':[],
+                          'addOnArabic':[],
+                          'addOnPrice':0.0,
+                          'variants':selectedVarient,
+                          'category':widget.category,
+                          'ingredients':widget.ingredients
+                        }])
 
-                   });
-               addOn[widget.name]=widget.addOns;
-             }
+                      });
+                  addOn[widget.name]=widget.addOns;
+                }
 
-             Navigator.of(context).pop();
+                Navigator.of(context).pop();
 
-           }
-           showUploadMessage(context, 'please select variant');
+              }
+              // showUploadMessage(context, 'please select variant');
             },
+
             child: Container(
               padding: const EdgeInsets.all(14),
-              child:  Text("Done",style:TextStyle(
+              child:  const Text("Done",style:TextStyle(
                   fontSize: 17,
                   color: Colors.blue
               )),

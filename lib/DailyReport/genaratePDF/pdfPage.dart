@@ -9,6 +9,7 @@ import 'package:printing/printing.dart';
 import 'package:universal_html/html.dart' as html;
 
 import '../../Branches/branches.dart';
+import '../../main.dart';
 import '../../modals/Print/pdf_api.dart';
 import 'dailyReport_model.dart';
 
@@ -20,7 +21,7 @@ var format = NumberFormat.simpleCurrency(locale: 'en_in');
 class B2bPdfInvoiceApi {
   static Future<File> generate(DailyReportData invoice) async {
     final pdf = Document();
-    image = await imageFromAssetBundle('assets/Point Plus Logo app.png');
+    image = await imageFromAssetBundle(imagelogo);
 
     pdf.addPage(MultiPage(
       build: (context) => [
@@ -56,7 +57,7 @@ class B2bPdfInvoiceApi {
                             pw.Row(
                                 children: [
                                   pw.Container(width: 70,child: pw.Text('Shop Name',style: pw.TextStyle(fontSize: 11,fontWeight: FontWeight.bold)),),
-                                  pw.Container(width: 170,child: pw.Text(': Boofiya Faraula',style: pw.TextStyle(fontSize: 11,fontWeight: FontWeight.bold)),),
+                                  pw.Container(width: 170,child: pw.Text(': Point Plus',style: pw.TextStyle(fontSize: 11,fontWeight: FontWeight.bold)),),
 
                                 ]
                             ),
@@ -192,7 +193,7 @@ class B2bPdfInvoiceApi {
                     ],
 
                     data:
-                    List.generate(invoice.userSaleData.length, (index) {
+                    List.generate(invoice.userSaleData.length??0, (index) {
                       final item =invoice.userSaleData[index];
                       print(item.toString()+'                    $index');
                       return [

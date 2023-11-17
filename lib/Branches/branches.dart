@@ -11,6 +11,7 @@ import '../main.dart';
 String currentBranchId;
 String currentBranchName;
 String currentBranchPhNo;
+String currentBranchWatsappNo;
 String currentBranchArabic;
 String currentBranchAddress;
 String vatNumber;
@@ -44,6 +45,7 @@ class _BranchPageWidgetState extends State<BranchPageWidget> {
         // FirebaseMessaging.instance.subscribeToTopic(currentBranchId.toString());
         currentBranchName = datas[0]['name'];
         currentBranchPhNo = datas[0]['number'];
+        currentBranchWatsappNo = datas[0]['watsappNo'];
         currentBranchAddress = datas[0]['currentBranchAddress'];
         currentBranchArabic = datas[0]['currentBranchArabic'];
         offerValue=datas[0]['offerPercentage']??0;
@@ -146,6 +148,8 @@ class _BranchPageWidgetState extends State<BranchPageWidget> {
                   offer = datas[0]['offer']??false;
                   DelCharge=datas[0]["deliveryCharge"]??0;
                   vatNumber=datas[0]["vatNumber"];
+                  currentBranchWatsappNo = datas[0]['watsappNo'];
+
 
 
 
@@ -160,6 +164,8 @@ class _BranchPageWidgetState extends State<BranchPageWidget> {
                     offer = datas[0]['offer']??false;
                     DelCharge=datas[0]["deliveryCharge"];
                     vatNumber=datas[0]["vatNumber"];
+                    currentBranchWatsappNo = datas[0]['watsappNo'];
+
 
 
                   });

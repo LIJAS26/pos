@@ -55,23 +55,35 @@ class _DailyReportsWidgetState extends State<DailyReportsWidget> {
 
     bytes += generator.text('Sales Reports', styles: const PosStyles(align: PosAlign.center,underline: false));
     bytes+=generator.feed(2);
-    bytes += generator.text('From ${DateFormat("yyyy-MM-dd hh:mm aaa").format(selectedFromDate)} To ${DateFormat("yyyy-MM-dd hh:mm aaa").format(selectedOutDate)}', styles: PosStyles(align: PosAlign.center,height: PosTextSize.size1,width: PosTextSize.size1,underline: false));
+    bytes += generator.text('From ${DateFormat("dd-MM-yyyy hh:mm aaa").format(selectedFromDate)} To ${DateFormat("dd-MM-yyyy hh:mm aaa").format(selectedOutDate)}', styles: PosStyles(align: PosAlign.center,height: PosTextSize.size1,width: PosTextSize.size1,underline: false));
     bytes+=generator.feed(2);
-    bytes += generator.text('No     Bill No     Amt', styles: const PosStyles(align: PosAlign.center,underline: false));
-    bytes += generator.text('.........................', styles: const PosStyles(align: PosAlign.center,underline: false));
+    bytes += generator.text('................................................', styles: const PosStyles(align: PosAlign.center,underline: false));
+    bytes+=generator.feed(1);
+    // bytes += generator.text('No    Bill No    Amt', styles: const PosStyles(align: PosAlign.center,underline: false));
+    bytes += generator.row([
+      PosColumn(text:"NO",styles: PosStyles(bold: true,align: PosAlign.left,height: PosTextSize.size1,width: PosTextSize.size1),width: 4),
+      PosColumn(text:"BILL NO",styles: PosStyles(bold: true,align: PosAlign.center,height: PosTextSize.size1,width: PosTextSize.size1),width: 4),
+      PosColumn(text:"AMOUNT",styles: PosStyles(bold: true,align: PosAlign.right,height: PosTextSize.size1,width: PosTextSize.size1),width: 4),
+    ]);
+    bytes += generator.text('................................................', styles: const PosStyles(align: PosAlign.center,underline: false));
     int i=1;
     double total=0;
     for(var data in items){
-      bytes+=generator.text('$i     ${data['no']}     ${data['amount']}',styles: const PosStyles(align: PosAlign.center));
-
+      // bytes+=generator.text('               $i     ${data['no']}     ${data['amount'].toStringAsFixed(2)}',styles: const PosStyles(align: PosAlign.left));
+      bytes += generator.row([
+        PosColumn(text:"$i",styles: PosStyles(bold: true,align: PosAlign.left,height: PosTextSize.size1,width: PosTextSize.size1),width: 4),
+        PosColumn(text:"${data['no']}",styles: PosStyles(bold: true,align: PosAlign.center,height: PosTextSize.size1,width: PosTextSize.size1),width: 4),
+        PosColumn(text:"${data['amount'].toStringAsFixed(2)}",styles: PosStyles(bold: true,align: PosAlign.right,height: PosTextSize.size1,width: PosTextSize.size1),width: 4),
+      ]);
+      bytes+=generator.feed(1);
       total+=data['amount'];
 
       i++;
     }
-    bytes += generator.text('........................', styles: PosStyles(align: PosAlign.center,underline: false));
+    bytes += generator.text('................................................', styles: PosStyles(align: PosAlign.center,underline: false));
 
     bytes +=generator.text('Total : ${total.toStringAsFixed(2)}',styles: const PosStyles(align: PosAlign.center));
-
+    bytes+=generator.feed(1);
     bytes += generator.feed(2);
 
     bytes += generator.cut();
@@ -91,7 +103,7 @@ class _DailyReportsWidgetState extends State<DailyReportsWidget> {
     bytes = [];
     bytes += generator.text('Sales Reports ', styles: const PosStyles(align: PosAlign.center,underline: false));
     bytes+=generator.feed(2);
-    bytes += generator.text('From ${DateFormat("yyyy-MM-dd hh:mm aaa").format(selectedFromDate)} To ${DateFormat("yyyy-MM-dd hh:mm aaa").format(selectedOutDate)}', styles: PosStyles(align: PosAlign.center,height: PosTextSize.size1,width: PosTextSize.size1,underline: false));
+    bytes += generator.text('From ${DateFormat("dd-MM-yyyy hh:mm aaa").format(selectedFromDate)} To ${DateFormat("dd-MM-yyyy hh:mm aaa").format(selectedOutDate)}', styles: PosStyles(align: PosAlign.center,height: PosTextSize.size1,width: PosTextSize.size1,underline: false));
     bytes+=generator.feed(2);
     ScreenshotController screenshotController = ScreenshotController();
     var  capturedImage1= await    screenshotController
@@ -104,40 +116,46 @@ class _DailyReportsWidgetState extends State<DailyReportsWidget> {
           mainAxisAlignment:MainAxisAlignment.center,
           children: [
             Text('CASHIER : $name',style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold),),
-              Text('  المحاسب :$arabicName ',style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold),),
-
+            Text(' $arabicName  : المحاسب ',style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold),),
+            // '  ${PosUserIdToArabicName[currentUserId]} : المحاسب'
           ],)));
     final im.Image image1 = im.decodeImage(capturedImage1);
     bytes += generator.image(image1,);
-
-
-
-
-
-
-      bytes += generator.text('No     Bill No     Amt', styles: const PosStyles(align: PosAlign.center,underline: false));
-    bytes += generator.text('........................', styles: const PosStyles(align: PosAlign.center,underline: false));
+    bytes+=generator.feed(2);
+    bytes += generator.text('................................................', styles: const PosStyles(align: PosAlign.center,underline: false));
+    bytes+=generator.feed(1);
+    // bytes += generator.text('No    Bill No    Amt', styles: const PosStyles(align: PosAlign.center,underline: false));
+    bytes += generator.row([
+      PosColumn(text:"NO",styles: PosStyles(bold: true,align: PosAlign.left,height: PosTextSize.size1,width: PosTextSize.size1),width: 4),
+      PosColumn(text:"BILL NO",styles: PosStyles(bold: true,align: PosAlign.center,height: PosTextSize.size1,width: PosTextSize.size1),width: 4),
+      PosColumn(text:"AMOUNT",styles: PosStyles(bold: true,align: PosAlign.right,height: PosTextSize.size1,width: PosTextSize.size1),width: 4),
+    ]);
+    bytes += generator.text('................................................', styles: const PosStyles(align: PosAlign.center,underline: false));
     int i=0;
     double total=0;
     for(var data in sale){
       if (data.get('currentUserId') == UID) {
         i++;
-        bytes += generator.text(
-            '$i       ${data['invoiceNo']}       ${data['grandTotal']}',
-            styles: const PosStyles(align: PosAlign.center));
-
+        // bytes += generator.text('              $i      ${data['invoiceNo']}      ${data['grandTotal'].toStringAsFixed(2)}', styles: const PosStyles(align: PosAlign.left));
+        bytes += generator.row([
+           PosColumn(text:"$i",styles: PosStyles(bold: true,align: PosAlign.left,height: PosTextSize.size1,width: PosTextSize.size1),width: 4),
+           PosColumn(text:"${data['invoiceNo']}",styles: PosStyles(bold: true,align: PosAlign.center,height: PosTextSize.size1,width: PosTextSize.size1),width: 4),
+           PosColumn(text:"${data['grandTotal'].toStringAsFixed(2)}",styles: PosStyles(bold: true,align: PosAlign.right,height: PosTextSize.size1,width: PosTextSize.size1),width: 4),
+         ]);
+         bytes+=generator.feed(1);
         total += data['grandTotal'];
       }
 
     }
-    bytes += generator.text('.........................', styles: PosStyles(align: PosAlign.center,underline: false));
+    bytes += generator.text('................................................', styles: PosStyles(align: PosAlign.center,underline: false));
+    bytes+=generator.feed(2);
     bytes += generator.text('Cash = $cash', styles: PosStyles(align: PosAlign.center,underline: false));
     bytes += generator.text('Bank = $bank', styles: PosStyles(align: PosAlign.center,underline: false));
 
-    bytes +=generator.text('Total : $total',styles: const PosStyles(align: PosAlign.center));
+    bytes +=generator.text('Total : ${total.toStringAsFixed(2)}',styles: const PosStyles(align: PosAlign.center));
     // bytes +=generator.text('أمير',styles: const PosStyles(align: PosAlign.center));
 
-    bytes += generator.feed(2);
+    bytes += generator.feed(1);
 
     bytes += generator.cut();
     try {
@@ -158,7 +176,7 @@ class _DailyReportsWidgetState extends State<DailyReportsWidget> {
 
     bytes += generator.text('Reports', styles: PosStyles(align: PosAlign.center,underline: false));
     bytes+=generator.feed(2);
-    bytes += generator.text('From ${DateFormat("yyyy-MM-dd hh:mm aaa").format(selectedFromDate)} To ${DateFormat("yyyy-MM-dd hh:mm aaa").format(selectedOutDate)}', styles: PosStyles(align: PosAlign.center,height: PosTextSize.size1,width: PosTextSize.size1,underline: false));
+    bytes += generator.text('From ${DateFormat("dd-MM-yyyy hh:mm aaa").format(selectedFromDate)} To ${DateFormat("dd-MM-yyyy hh:mm aaa").format(selectedOutDate)}', styles: PosStyles(align: PosAlign.center,height: PosTextSize.size1,width: PosTextSize.size1,underline: false));
     bytes+=generator.feed(1);
     bytes += generator.text('Sales : ${sale==null?'0':sale.length.toString()}', styles: PosStyles(align: PosAlign.center,underline: false));
     bytes += generator.text('Purchase : ${purchase==null?'0':purchase.length.toString()}', styles: PosStyles(align: PosAlign.center,underline: false));
@@ -224,8 +242,6 @@ class _DailyReportsWidgetState extends State<DailyReportsWidget> {
   double totVatSale=0;
   QuerySnapshot sales;
   getSales() async {
-    print(datePicked1.toDate().toString().substring(0,10));
-    print(datePicked2.toDate().toString().substring(0,10));
      sales =await FirebaseFirestore.instance.collection('sales')
         .doc(currentBranchId)
         .collection('sales')
@@ -279,7 +295,6 @@ totVatSale=0;
   double purchaseCash=0;
   double purchaseBank=0;
 
-
   var expense;
   double totalExp=0;
   double expCash=0;
@@ -330,6 +345,7 @@ totVatSale=0;
 
     });
   }
+
 
   List salesList=[];
   final format = DateFormat("yyyy-MM-dd hh:mm aaa");
@@ -460,7 +476,6 @@ totVatSale=0;
               children: [
 
                 // TextButton(
-                //
                 //     onPressed: () {
                 //       showDatePicker(
                 //           context: context,
@@ -640,13 +655,13 @@ totVatSale=0;
                   ),
                   onPressed: () async {
                     if(datePicked1!=null&&datePicked2!=null){
-                      print('pressed');
+
                       getSales();
                       getExpense();
                       getPurchase();
                       getReturn();
 
-                      print('pressed1');
+
                     }else{
                       datePicked1==null? showUploadMessage(context, 'Please Choose Starting Date'):
                       showUploadMessage(context, 'Please Choose Ending Date');
@@ -784,7 +799,7 @@ totVatSale=0;
                         borderRadius: BorderRadius.circular(10)
                     ),
                     child: Center(
-                      child: Text('Genarate PDF',style: TextStyle(
+                      child: Text('Daily Report',style: TextStyle(
                         fontSize: 16,
                         color: Colors.white
                       ),),

@@ -49,7 +49,7 @@ class _history_View_WidgetState extends State<history_View_Widget> {
 
   qr(String vatTotal1, String grantTotal, DateTime saleDate) {
     // seller name
-    String sellerName = 'Boofiya Faraula';
+    String sellerName = 'POINT PLUS';
     String vat_registration = vatNumber;
     String vatTotal = vatTotal1;
     String invoiceTotal = grantTotal;
@@ -118,7 +118,7 @@ class _history_View_WidgetState extends State<history_View_Widget> {
 
   List<int> kotBytes = [];
   List<int> bytes = [];
-  abc(int invNo,double discount,List items,int token,String tableNo,double delivery,DateTime salesDate,double pc,double pb,double bal) async {
+  abc(int invNo,double discount,List items,int token,String tableNo,double delivery,DateTime salesDate,double pc,double pb,double bal, ) async {
     print('start');
     final CapabilityProfile profile = await CapabilityProfile.load();
 
@@ -169,6 +169,12 @@ class _history_View_WidgetState extends State<history_View_Widget> {
               children:  [
                 Text('Invoice No:',style: TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
                 Text('$invNo',style: TextStyle(color: Colors.black,fontSize: fontSize,fontWeight: FontWeight.w600),),
+              ],),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children:  [
+                Text('Table No:',style: TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
+                Text('$selectedTable',style: TextStyle(color: Colors.black,fontSize: fontSize,fontWeight: FontWeight.w600),),
               ],),
 
 
@@ -550,11 +556,30 @@ print("$capturedhead--------------------");
           .toStringAsFixed(2);
       itemGrossTotal += grossTotal.toStringAsFixed(2);
       itemTax += (totalAmount * gst / 100).toStringAsFixed(2);
+      if(itemWidgets1.length==itemCount){
+        var capturedIm = await screenshotController
+            .captureFromWidget(Container(
+          width: printWidth*3,
+
+          child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: itemWidgets1.length,
+              itemBuilder: (context, index) {
+                return itemWidgets1[index];
+              }),
+        ));
+
+        final im.Image image2 = im.decodeImage(capturedIm);
+        bytes += generator.image(image2);
+        itemWidgets1=[];
+      }
     }
-    if(itemWidgets1.length>0){
+    if (itemWidgets1.isNotEmpty) {
+      print("NOT EMPTYYYYYYYYYYYYYYYY");
+
       var capturedIm = await screenshotController
           .captureFromWidget(Container(
-        width: printWidth*3,
+        width: printWidth * 3,
 
         child: ListView.builder(
             shrinkWrap: true,
@@ -564,10 +589,13 @@ print("$capturedhead--------------------");
             }),
       ));
 
-      final im.Image image2 = im.decodeImage(capturedIm);
-      bytes += generator.image(image2);
-      itemWidgets1=[];
+      final im.Image image25 = im.decodeImage(capturedIm);
+      imageList.add(image25);
+      bytes += generator.image(image25);
+
+      itemWidgets1 = [];
     }
+
     List<Widget> itemWidgets2=[];
     itemWidgets.add( Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -609,7 +637,7 @@ print("$capturedhead--------------------");
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Delivery Charge - رسوم التوصيل : ',style:  TextStyle(color: Colors.black,fontSize: fontSize+4,fontWeight: FontWeight.w600),),
-              Text('${delivery.toStringAsFixed(2)} ',style:  TextStyle(color: Colors.black,fontSize: fontSize+4,fontWeight: FontWeight.w600),),
+              Text('${delivery.toStringAsFixed(2)}',style:  TextStyle(color: Colors.black,fontSize: fontSize+4,fontWeight: FontWeight.w600),),
             ],
           ),),
         Container(
@@ -651,17 +679,19 @@ print("$capturedhead--------------------");
             child:  Center(child: Text('-------------------------------------------',
               style: TextStyle(color: Colors.black,fontSize: printWidth*.25),))
         ),
+
         Container(    padding: const EdgeInsets.all(1.0),
           decoration: const BoxDecoration(
             color: Colors.white,
           ),
           child:     Center(
             child:  Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+
+              crossAxisAlignment: CrossAxisAlignment.start,
               children:   [
-                Text('Cash  :  ${pc}',style:  TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
-                Text('Bank  :  ${pb}',style:  TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
-                Text('Change :  ${bal}',style:  TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
+                Text('Cash      :  ${pc.toStringAsFixed(2)}',style:  TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
+                Text('Bank      :  ${pb.toStringAsFixed(2)}',style:  TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
+                Text('Change :  ${bal.toStringAsFixed(2)}',style:  TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
 
               ],
             ),
@@ -1037,7 +1067,8 @@ print("$capturedhead--------------------");
                                                           data[index]['balance']
                                                               .toString()),
                                                     );
-                                                  }) : abc(
+                                                  }) :
+                                              abc(
                                                 invoice,
                                                 discount,
                                                 billItems,
@@ -1053,9 +1084,9 @@ print("$capturedhead--------------------");
                                                 double.tryParse(
                                                     data[index]['paidBank']
                                                         .toString()),
-                                                double.tryParse(
-                                                    data[index]['balance']
-                                                        .toString()),);
+                                                double.tryParse(data[index]['balance'].toString()),
+                                                  // data[index]['orderType']
+                                              );
                                             },
                                             text: 'Print',
                                             icon: const Icon(
@@ -1319,32 +1350,34 @@ print("$capturedhead--------------------");
                                                           .toString()),
                                                   double.tryParse(
                                                       data[index]['balance']
-                                                          .toString()),);
+                                                          .toString()),
+                                                    // data[index]['orderType']
+                                                    );
                                               } catch (e) {
                                                 print(e.toString() +
                                                     'llllllllllllllllllll');
-                                                showDialog<void>(
-                                                  context: context,
-                                                  barrierDismissible: false,
-                                                  // user must tap button!
-                                                  builder: (
-                                                      BuildContext context) {
-                                                    return AlertDialog(
-                                                      title: Text(e.toString()),
-
-                                                      actions: <Widget>[
-                                                        TextButton(
-                                                          child: const Text(
-                                                              'Approve'),
-                                                          onPressed: () {
-                                                            Navigator.of(
-                                                                context).pop();
-                                                          },
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
+                                                // showDialog<void>(
+                                                //   context: context,
+                                                //   barrierDismissible: false,
+                                                //   // user must tap button!
+                                                //   builder: (
+                                                //       BuildContext context) {
+                                                //     return AlertDialog(
+                                                //       title: Text(e.toString()),
+                                                //
+                                                //       actions: <Widget>[
+                                                //         TextButton(
+                                                //           child: const Text(
+                                                //               'Approve'),
+                                                //           onPressed: () {
+                                                //             Navigator.of(
+                                                //                 context).pop();
+                                                //           },
+                                                //         ),
+                                                //       ],
+                                                //     );
+                                                //   },
+                                                // );
                                               }
                                             },
                                             text: 'Print',

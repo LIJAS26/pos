@@ -76,6 +76,7 @@ class _ExpenseReportState extends State<ExpenseReport> {
           .get()
           .then((value) {
         invoices = value;
+        invoiceList=[];
         for (var item in value.docs) {
           invoiceList.add({
             'staff': PosUserIdToName[item['currentUserId']],

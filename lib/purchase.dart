@@ -19,6 +19,7 @@ class Purchases extends StatefulWidget {
 class _PurchasesState extends State<Purchases> {
   String uploadedFileUrl1;
   String invoiceNo;
+  String vatNo;
   String supplier;
   String amount;
   String gst;
@@ -33,6 +34,7 @@ class _PurchasesState extends State<Purchases> {
   TextEditingController amountController;
   TextEditingController gstController;
   TextEditingController descriptionController;
+  TextEditingController vatNumberController;
    @override
   void initState() {
    invoiceNoController=TextEditingController();
@@ -40,6 +42,7 @@ class _PurchasesState extends State<Purchases> {
    amountController=TextEditingController();
    gstController=TextEditingController();
    descriptionController=TextEditingController();
+   vatNumberController=TextEditingController();
     super.initState();
   }
   @override
@@ -292,9 +295,9 @@ class _PurchasesState extends State<Purchases> {
                         },
                         controller: gstController,
                         decoration: InputDecoration(
-                          labelText: 'Vat',
+                          labelText: 'Vat Amount',
                           hoverColor: Color(0xFF2b0e10),
-                          hintText: 'Enter Vat',
+                          hintText: 'Enter Vat Amount',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0),
                           ),
@@ -307,6 +310,34 @@ class _PurchasesState extends State<Purchases> {
                   ],
                 ),
                 const SizedBox(height: 20,),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        onChanged: (value){
+                          setState(() {
+                            vatNo=value;
+                          });
+                        },
+                        controller: vatNumberController,
+                        decoration: InputDecoration(
+
+                          labelText: 'VAT NUMBER',
+                          hoverColor: Color(0xFF2b0e10),
+                          hintText: 'Enter Vat Number',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xFF2b0e10), width: 1.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20,),
+
                 // TextFormField(
                 //   onChanged: (value){
                 //     setState(() {
@@ -356,7 +387,7 @@ class _PurchasesState extends State<Purchases> {
                       onTap: () async {
 
                         // if(invoiceNo!=null&&gst!=null&&description!=null
-                         if(invoiceNo!=null&&description!=null
+                         if(invoiceNo!=null&&description!=null&&vatNo!=null&&gst!=null
                             &&amount!=null&&(cashPayment==true||bankPayment==true)){
                           print('nnnnnnnnnnnnnn');
 
@@ -380,7 +411,8 @@ class _PurchasesState extends State<Purchases> {
                                 'description': description,
                                 'salesDate' :DateTime.now(),
                                 'currentUserId':currentUserId,
-                                'cash':cashPayment==true?true:false
+                                'cash':cashPayment==true?true:false,
+                                "vatNumber":vatNo
                               });
                           FirebaseFirestore.instance
                               .collection('invoiceNo')
@@ -396,6 +428,7 @@ class _PurchasesState extends State<Purchases> {
                             supplierController.text = '';
                             amountController.text = '';
                             gstController.text = '';
+                            vatNumberController.text=" ";
                             uploadedFileUrl1 = '';
                             descriptionController.text = '';
                             description = '';
@@ -405,14 +438,18 @@ class _PurchasesState extends State<Purchases> {
                             gst = '';
                             cashPayment=false;
                             bankPayment=false;
+                            vatNo='';
                           });
 
                         }else{
                           invoiceNo==null?showUploadMessage(context, 'Please Enter Invoice Number')
                               :(cashPayment==false&&bankPayment==false)?showUploadMessage(context, 'Please Select Payment Method')
                               :amount==null?showUploadMessage(context, 'Please Enter Amount')
-                              // :gst==null?showUploadMessage(context, 'Please Enter vat Amount')
-                              :showUploadMessage(context, 'Please Enter description');
+                              :vatNo==null?showUploadMessage(context,"Please Enter Vat Number")
+                              :gst==null?showUploadMessage(context, 'Please Enter Vat Amount')
+                              :showUploadMessage(context, 'Please Enter description')
+
+                          ;
                         }
 
                       },

@@ -42,7 +42,9 @@ class _SalesReportState extends State<SalesReport> {
     invoices=await FirebaseFirestore.instance.collection('sales')
         .doc(currentBranchId)
         .collection('sales')
-        .where('invoiceNo',isEqualTo: int.tryParse(invoiceController.text)).get();
+        .where('invoiceNo',isEqualTo: int.tryParse(invoiceController.text))
+        // .where('returned',isEqualTo: false)
+        .get();
     setState(() {
 
     });
@@ -56,6 +58,7 @@ class _SalesReportState extends State<SalesReport> {
           .collection('sales')
           .where('salesDate', isGreaterThanOrEqualTo: fromDateTimeStamp)
           .where('salesDate', isLessThan: toDateTimeStamp)
+          // .where('returned',isEqualTo: false)
           .get();
       setState(() {
 
@@ -70,6 +73,7 @@ class _SalesReportState extends State<SalesReport> {
         .doc(currentBranchId)
         .collection('sales')
         .where('salesDate',isGreaterThanOrEqualTo: lastMidnight)
+        // .where('returned',isEqualTo: false)
         .get();
      setState(() {
 

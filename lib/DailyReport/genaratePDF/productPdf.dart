@@ -46,7 +46,9 @@ print(invoice.From);
                     ]
                 ),
               ),
-//STUDENT DETAIL
+        pw.Text('Product Report',
+            style: pw.TextStyle(
+                fontSize: 15, fontWeight: FontWeight.bold)),
               pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                   children: [

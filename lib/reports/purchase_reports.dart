@@ -102,6 +102,7 @@ class _PurchaseReportState extends State<PurchaseReport> {
           .get()
           .then((value) {
         invoices = value;
+        invoiceList=[];
         for (var item in value.docs) {
           invoiceList.add({
             'staff': PosUserIdToName[item['currentUserId']],
@@ -109,7 +110,8 @@ class _PurchaseReportState extends State<PurchaseReport> {
             'invoiceNo': item['invoiceNo'],
             'description': item['description'],
             'voucherNo': item['voucherNo'],
-            'salesDate':item['salesDate']
+            'salesDate':item['salesDate'],
+            "vatNumber":item['vatNumber'],
           });
           setState(() {});
         }
@@ -129,6 +131,7 @@ class _PurchaseReportState extends State<PurchaseReport> {
         .get()
         .then((value) {
       invoices = value;
+      invoiceList=[];
       for (var item in value.docs) {
         print(123);
         invoiceList.add({
@@ -137,7 +140,9 @@ class _PurchaseReportState extends State<PurchaseReport> {
           'invoiceNo': item['invoiceNo'],
           'description': item['description'],
           'voucherNo': item['voucherNo'],
-          'salesDate':item['salesDate']
+          'salesDate':item['salesDate'],
+          "vatNumber":item['vatNumber'],
+
         });
         setState(() {});
       }

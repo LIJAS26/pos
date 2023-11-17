@@ -187,7 +187,7 @@ class _SalesHistoryPrintState extends State<SalesHistoryPrint> {
                                    supplier:
                                    Supplier(name: 'Test', address: 'test', paymentInfo: 'test'),
                                    info: InvoiceInfo(
-                                     description: 'Boofiya Faraula',
+                                     description: 'POINT PLUS',
                                      number: '',
                                      date: DateTime.now(),
                                    ),

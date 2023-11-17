@@ -54,9 +54,8 @@ class _IngredientReportState extends State<IngredientReport> {
               try {
                 final invoice =
                 IncredientReportData(
-                  ing:ingredients,
-                  // From:widget.From,
-                  // To:widget.To,
+                  ing:ingredients??[],
+
 
 
                 );
@@ -109,7 +108,7 @@ class _IngredientReportState extends State<IngredientReport> {
                     shrinkWrap: true,
                     itemBuilder: (buildContext,int index){
                       Map<String,dynamic> ing =snapshot.data!.docs![index].data();
-                      ingredients=snapshot.data!.docs;
+                      ingredients=snapshot.data!.docs??[];
 
                       return Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 8),
@@ -149,7 +148,7 @@ class _IngredientReportState extends State<IngredientReport> {
                                   child: Container(
                                     width: MediaQuery.of(context).size.width*0.3,
                                     child: Text(
-                                      ing["ingredient"],
+                                      ing["ingredient"]??'',
                                       style: FlutterFlowTheme.subtitle1.override(
                                         fontFamily: 'Lexend Deca',
                                         color: Color(0xFF090F13),

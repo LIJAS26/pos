@@ -58,9 +58,9 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:image/image.dart' as im;
 import 'package:arabic_numbers/arabic_numbers.dart';
 
-
-var imagelogo='assets/point plus pdf logo.png';
-final default_color=Color(0xe5ff7400);
+bool enable=false;
+var imagelogo='assets/point plus app logo.jpg';
+final default_color=Colors.black;
 bool _connected = false;
 bool _pressed = false;
  bool offer =false;
@@ -117,7 +117,7 @@ setPrinterImages() async {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Branch Name:",style:  TextStyle(fontFamily:'GE Dinar One Medium',color: Colors.black, fontSize: fontSize+2,fontWeight: FontWeight.w600),),
+              Text("Location:",style:  TextStyle(fontFamily:'GE Dinar One Medium',color: Colors.black, fontSize: fontSize+2,fontWeight: FontWeight.w600),),
               Text(currentBranchAddress,style:  TextStyle(fontFamily:'GE Dinar One Medium',color: Colors.black, fontSize: fontSize+2,fontWeight: FontWeight.w600),),
             ],
           ),
@@ -127,6 +127,13 @@ setPrinterImages() async {
             children: [
               Text('Contact No: ', style: TextStyle(color: Colors.black, fontSize: fontSize + 2, fontWeight: FontWeight.w600),),
               Text('$currentBranchPhNo ', style: TextStyle(color: Colors.black, fontSize: fontSize, fontWeight: FontWeight.w600),),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Watsapp No: ', style: TextStyle(color: Colors.black, fontSize: fontSize + 2, fontWeight: FontWeight.w600),),
+              Text('$currentBranchWatsappNo ', style: TextStyle(color: Colors.black, fontSize: fontSize, fontWeight: FontWeight.w600),),
 
             ],
           ),
@@ -134,7 +141,7 @@ setPrinterImages() async {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children:  [
               Text('Vat No:',style: TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
-              Text('311202993300003',style: TextStyle(color: Colors.black,fontSize: fontSize,fontWeight: FontWeight.w600),),
+              Text(vatNumber,style: TextStyle(color: Colors.black,fontSize: fontSize,fontWeight: FontWeight.w600),),
             ],),
 
 
@@ -196,7 +203,6 @@ setPrinterImages() async {
                         fontSize: fontSize,
                         fontWeight: FontWeight.w600),
                   ),
-
                 ],
               ),
             ),
@@ -289,7 +295,7 @@ setPrinterImages() async {
   footerImage=await screenshotController
       .captureFromWidget(Container(
     width: printWidth * 3,
-    height: printWidth * 2,
+    height: printWidth ,
     color: Colors.white,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -297,10 +303,7 @@ setPrinterImages() async {
         Column(
           children: [
             SizedBox(height: 8,),
-            Text('${PosUserIdToArabicName[currentUserId]}: المحاسب  ',
-              style: TextStyle(color: Colors.black,
-                fontSize: fontSize + 2,
-                fontWeight: FontWeight.bold,),),
+            Text('  ${PosUserIdToArabicName[currentUserId]} : المحاسب', style: TextStyle(color: Colors.black, fontSize: fontSize + 2, fontWeight: FontWeight.bold,),),
             Text('Cashier : ${PosUserIdToName[currentUserId]}',
               style: TextStyle(color: Colors.black,
                   fontSize: fontSize,
@@ -323,242 +326,7 @@ setPrinterImages() async {
     ),
   ));
 }
-bool working=false;
-setItemWidgets(List items) async {
 
-  while(working){
-
-    await Future.delayed(const Duration(milliseconds: 300));
-  }
-  print("starrrrrrrrrrrrrrrrrrrrt");
-  print(DateTime.now());
-  working=true;
-
-  List itemWidgets1=[];
-  imageList=[];
-
-  for (Map<String, dynamic> item in items) {
-    double addOnPrice = item['addOnPrice'];
-    double total = (double.tryParse(item['price'].toString()) + addOnPrice) *
-        double.tryParse(item['qty'].toString());
-    double grossTotal = total * 100 / 115;
-    double vat = (double.tryParse(item['price'].toString()) + addOnPrice) * 15 /
-        115;
-    List newAddOn = item['addOns'];
-    String arabic = item['arabicName'];
-    String english = item['pdtname'];
-
-
-
-    newAddOn = item['addOns'];
-    newAddOnArabic = item['addOnArabic'];
-    String addOnArabic = newAddOnArabic.isEmpty ? '' : newAddOnArabic.toString();
-    String addON = newAddOn.isEmpty ? '' : newAddOn.toString();
-    double price = (double.tryParse(item['price'].toString()) + addOnPrice) *
-        100 / 115;
-
-    itemWidgets1.add(
-        Container(
-            width: printWidth * 3,
-            padding: const EdgeInsets.all(1.0),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-            ),
-
-            child: ListView(
-                shrinkWrap: true,
-                children: [
-                  Container(
-                    width: printWidth*3,
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('$arabic $addOnArabic',
-                                    // textDirection: TextDirection.rtl,
-                                    style:  TextStyle(
-                                      fontFamily: 'GE Dinar One Medium',
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  Text('$english $addON',
-                                    // textDirection: TextDirection.rtl,
-                                    style:  TextStyle(
-                                      fontFamily: 'GE Dinar One Medium',
-                                      fontSize: fontSize,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-
-                                ],
-                              ),
-                            ),
-
-
-                            Container(
-                              width: 45,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Text('${arabicNumber.convert(double.tryParse(item['qty'].toString()).toStringAsFixed(2))}',
-                                  //   style:  TextStyle(
-                                  //       fontFamily: 'GE Dinar One Medium',
-                                  //       color: Colors.black,
-                                  //       fontSize: fontSize+2,
-                                  //       fontWeight: FontWeight.w600),
-                                  // ),
-                                  Text('${double.tryParse(item['qty'].toString())}',
-                                    style:  TextStyle(
-                                        fontFamily: 'GE Dinar One Medium',
-                                        color: Colors.black,
-                                        fontSize: fontSize,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: 45,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Text('${arabicNumber.convert(price.toStringAsFixed(2))} ',
-                                  //   style:  TextStyle(
-                                  //       fontFamily: 'GE Dinar One Medium',
-                                  //       color: Colors.black,
-                                  //       fontSize: fontSize+2,
-                                  //       fontWeight: FontWeight.w600),
-                                  // ),
-                                  Text('${price.toStringAsFixed(2)} ',
-                                    style:  TextStyle(
-                                        fontFamily: 'GE Dinar One Medium',
-                                        color: Colors.black,
-                                        fontSize: fontSize,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: 45,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Text('${arabicNumber.convert(vat.toStringAsFixed(2))}',
-                                  //   style:  TextStyle(
-                                  //       fontFamily: 'GE Dinar One Medium',
-                                  //       color: Colors.black,
-                                  //       fontSize: fontSize+2,
-                                  //       fontWeight: FontWeight.w600),
-                                  // ),
-                                  Text('${vat.toStringAsFixed(2)}',
-                                    style:  TextStyle(
-                                        fontFamily: 'GE Dinar One Medium',
-                                        color: Colors.black,
-                                        fontSize: fontSize,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: 50,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Text('${arabicNumber.convert(total.toStringAsFixed(2))}',
-                                  //   style:  TextStyle(
-                                  //       fontFamily: 'GE Dinar One Medium',
-                                  //       color: Colors.black,
-                                  //       fontSize: fontSize+2,
-                                  //       fontWeight: FontWeight.w600),
-                                  // ),
-                                  Text('${total.toStringAsFixed(2)}',
-                                    style:  TextStyle(
-                                        fontFamily: 'GE Dinar One Medium',
-                                        color: Colors.black,
-                                        fontSize: fontSize,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-
-                                ],
-                              ),
-                            ),
-
-
-                          ],
-                        ),
-                        SizedBox(height:10)
-                      ],
-                    ),
-                  ),
-                  // Text("${item['pdtname']} $addON",
-                  //   textDirection: TextDirection.ltr,
-                  //   style: const TextStyle(
-                  //     fontSize: 14,
-                  //     color: Colors.black,
-                  //   ),
-                  // ),
-
-                ]
-            )
-        )
-    );
-    if (itemWidgets1.length == itemCount) {
-      itemImage = await screenshotController
-          .captureFromWidget(Container(
-        width: printWidth * 3,
-
-        child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: itemWidgets1.length,
-            itemBuilder: (context, index) {
-              return itemWidgets1[index];
-            }),
-      ));
-
-      final im.Image image22 = im.decodeImage(itemImage);
-      imageList.add(image22);
-      itemWidgets1 = [];
-    }
-
-
-
-  }
-  if (itemWidgets1.isNotEmpty) {
-    var capturedIm = await screenshotController
-        .captureFromWidget(Container(
-      width: printWidth * 3,
-
-      child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: itemWidgets1.length,
-          itemBuilder: (context, index) {
-            return itemWidgets1[index];
-          }),
-    ));
-
-    final im.Image image22 = im.decodeImage(capturedIm);
-    imageList.add(image22);
-
-    itemWidgets1 = [];
-  }
-  working=false;
-  print("endddddddddddddddddddddddddddddddddddddddddddd");
-  print(DateTime.now());
-}
 
 ingredientsUpdate(List billItems){
   for(var a in billItems){
@@ -600,7 +368,7 @@ String discount = '';
 String delivery = '';
 int table;
 List items = [];
-final primaryColor = Color(0xe5ff7400);
+final primaryColor = Colors.black;
 const secondaryColor = Colors.black;
 bool isDrawerOpen = false;
 QuerySnapshot branches;
@@ -908,7 +676,7 @@ List previousItems=[];
   // ScreenshotController screenshotController = ScreenshotController();
   qr(String vatTotal1, String grantTotal) {
     // seller name
-    String sellerName = 'Boofiya Faraula';
+    String sellerName = 'POINT PLUS';
     String vat_registration = '$vatNumber';
     String vatTotal = vatTotal1;
     String invoiceTotal = grantTotal;
@@ -948,14 +716,257 @@ List previousItems=[];
     const Base64Encoder base64encoder = Base64Encoder();
     return base64encoder.convert(qrCodeAsBytes);
   }
+  bool working=false;
+  setItemWidgets(List items) async {
 
-  abc(int invNo,double discount,List items,int token,String selectedTable,double deliveryAmount,double pc,double pb,double bal) async {
+    while(working){
+
+      await Future.delayed(const Duration(milliseconds: 300));
+    }
+    print("starrrrrrrrrrrrrrrrrrrrt");
+    print(DateTime.now());
+    working=true;
+
+    List itemWidgets1=[];
+    imageList=[];
+
+    for (Map<String, dynamic> item in items) {
+      double addOnPrice = item['addOnPrice'];
+      double total = (double.tryParse(item['price'].toString()) + addOnPrice) *
+          double.tryParse(item['qty'].toString());
+      double grossTotal = total * 100 / 115;
+      double vat = (double.tryParse(item['price'].toString()) + addOnPrice) * 15 /
+          115;
+      List newAddOn = item['addOns'];
+      String arabic = item['arabicName'];
+      String english = item['pdtname'];
+
+
+
+      newAddOn = item['addOns'];
+      newAddOnArabic = item['addOnArabic'];
+      String addOnArabic = newAddOnArabic.isEmpty ? '' : newAddOnArabic.toString();
+      String addON = newAddOn.isEmpty ? '' : newAddOn.toString();
+      double price = (double.tryParse(item['price'].toString()) + addOnPrice) *
+          100 / 115;
+
+      itemWidgets1.add(Container(
+          width: printWidth * 3,
+          padding: const EdgeInsets.all(1.0),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+          ),
+
+          child: ListView(
+              shrinkWrap: true,
+              children: [
+                Container(
+                  width: printWidth*3,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('$arabic $addOnArabic',
+                                  // textDirection: TextDirection.rtl,
+                                  style:  TextStyle(
+                                    fontFamily: 'GE Dinar One Medium',
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                Text('$english $addON',
+                                  // textDirection: TextDirection.rtl,
+                                  style:  TextStyle(
+                                    fontFamily: 'GE Dinar One Medium',
+                                    fontSize: fontSize,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black,
+                                  ),
+                                ),
+
+                              ],
+                            ),
+                          ),
+
+
+                          Container(
+                            width: 45,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Text('${arabicNumber.convert(double.tryParse(item['qty'].toString()).toStringAsFixed(2))}',
+                                //   style:  TextStyle(
+                                //       fontFamily: 'GE Dinar One Medium',
+                                //       color: Colors.black,
+                                //       fontSize: fontSize+2,
+                                //       fontWeight: FontWeight.w600),
+                                // ),
+                                Text('${double.tryParse(item['qty'].toString())}',
+                                  style:  TextStyle(
+                                      fontFamily: 'GE Dinar One Medium',
+                                      color: Colors.black,
+                                      fontSize: fontSize,
+                                      fontWeight: FontWeight.w600),
+                                ),
+
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: 45,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Text('${arabicNumber.convert(price.toStringAsFixed(2))} ',
+                                //   style:  TextStyle(
+                                //       fontFamily: 'GE Dinar One Medium',
+                                //       color: Colors.black,
+                                //       fontSize: fontSize+2,
+                                //       fontWeight: FontWeight.w600),
+                                // ),
+                                Text('${price.toStringAsFixed(2)} ',
+                                  style:  TextStyle(
+                                      fontFamily: 'GE Dinar One Medium',
+                                      color: Colors.black,
+                                      fontSize: fontSize,
+                                      fontWeight: FontWeight.w600),
+                                ),
+
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: 45,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Text('${arabicNumber.convert(vat.toStringAsFixed(2))}',
+                                //   style:  TextStyle(
+                                //       fontFamily: 'GE Dinar One Medium',
+                                //       color: Colors.black,
+                                //       fontSize: fontSize+2,
+                                //       fontWeight: FontWeight.w600),
+                                // ),
+                                Text('${vat.toStringAsFixed(2)}',
+                                  style:  TextStyle(
+                                      fontFamily: 'GE Dinar One Medium',
+                                      color: Colors.black,
+                                      fontSize: fontSize,
+                                      fontWeight: FontWeight.w600),
+                                ),
+
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: 50,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Text('${arabicNumber.convert(total.toStringAsFixed(2))}',
+                                //   style:  TextStyle(
+                                //       fontFamily: 'GE Dinar One Medium',
+                                //       color: Colors.black,
+                                //       fontSize: fontSize+2,
+                                //       fontWeight: FontWeight.w600),
+                                // ),
+                                Text('${total.toStringAsFixed(2)}',
+                                  style:  TextStyle(
+                                      fontFamily: 'GE Dinar One Medium',
+                                      color: Colors.black,
+                                      fontSize: fontSize,
+                                      fontWeight: FontWeight.w600),
+                                ),
+
+                              ],
+                            ),
+                          ),
+
+
+                        ],
+                      ),
+                      SizedBox(height:10)
+                    ],
+                  ),
+                ),
+                // Text("${item['pdtname']} $addON",
+                //   textDirection: TextDirection.ltr,
+                //   style: const TextStyle(
+                //     fontSize: 14,
+                //     color: Colors.black,
+                //   ),
+                // ),
+
+              ]
+          )
+      ));
+      if (itemWidgets1.length == itemCount) {
+        itemImage = await screenshotController
+            .captureFromWidget(Container(
+          width: printWidth * 3,
+
+          child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: itemWidgets1.length,
+              itemBuilder: (context, index) {
+                return itemWidgets1[index];
+              }),
+        ));
+
+        final im.Image image22 = im.decodeImage(itemImage);
+        imageList.add(image22);
+        itemWidgets1 = [];
+      }
+
+
+
+    }
+    if (itemWidgets1.isNotEmpty) {
+      var capturedIm = await screenshotController
+          .captureFromWidget(Container(
+        width: printWidth * 3,
+
+        child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: itemWidgets1.length,
+            itemBuilder: (context, index) {
+              return itemWidgets1[index];
+            }),
+      ));
+
+      final im.Image image22 = im.decodeImage(capturedIm);
+      imageList.add(image22);
+
+      itemWidgets1 = [];
+    }
+    if (itemWidgets1.isEmpty) {
+      print("EMPTYYYYYYYYYYYYYYYYYY");
+      print("enable trueeeeeeeeee");
+      setState(() {
+        enable = true;
+      });
+    }
+    working=false;
+    print("endddddddddddddddddddddddddddddddddddddddddddd");
+    print(DateTime.now());
+  }
+
+  abc(int invNo,double discount,List items,int token,String selectedTable,double deliveryAmount,double pc,double pb,double bal, String dropdownvalue) async {
 try {
+
   print("abc start");
+  print(dropdownvalue);
   print(DateTime.now());
 
 
-  final CapabilityProfile profile = await CapabilityProfile.load(name: "TP806L");
+  final CapabilityProfile profile = await CapabilityProfile.load();
   const PaperSize paper1 = PaperSize.mm80;
   var profile1 = await CapabilityProfile.load();
   var printer1 = NetworkPrinter(paper1, profile1);
@@ -1011,6 +1022,12 @@ try {
               Text('Invoice No:',style: TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
               Text('$invNo',style: TextStyle(color: Colors.black,fontSize: fontSize,fontWeight: FontWeight.w600),),
             ],),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children:  [
+              Text('Table No:',style: TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
+              Text('$selectedTable',style: TextStyle(color: Colors.black,fontSize: fontSize,fontWeight: FontWeight.w600),),
+            ],),
 
 
         ]
@@ -1019,7 +1036,8 @@ try {
 
   final im.Image image10 = im.decodeImage(capturedImage10);
   bytes += generator.image(image10);
-
+  print('dropdownvalue');
+  print(dropdownvalue);
 
   bytes +=generator.text("-------------------------------------------",styles: PosStyles(bold: true,align: PosAlign.center,height: PosTextSize.size2,));
   bytes +=generator.text("TOKEN NUMBER : $token",styles: PosStyles(bold: true,align: PosAlign.center,height: PosTextSize.size2,width: PosTextSize.size2));
@@ -1164,21 +1182,27 @@ try {
               child:  Center(child: Text('-------------------------------------------',
                 style: TextStyle(color: Colors.black,fontSize: printWidth*.25),))
           ),
-          Container(    padding: const EdgeInsets.all(1.0),
+          Container(padding: const EdgeInsets.all(1.0),
             decoration: const BoxDecoration(
               color: Colors.white,
             ),
-            child:     Center(
+            child: Center(
+              child: Column(
 
-              child:  Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children:   [
-                  // Text('نقدأ  :  ${arabicNumber.convert(pc.toStringAsFixed(2))}',style:  TextStyle(color: Colors.black,fontSize: fontSize,fontWeight: FontWeight.w600),),
-                  Text('Cash  :  ${pc}',style:  TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
-                  // Text('مصرف  :  ${arabicNumber.convert(pb.toStringAsFixed(2))}',style:  TextStyle(color: Colors.black,fontSize: fontSize,fontWeight: FontWeight.w600),),
-                  Text('Bank  :  ${pb}',style:  TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
-                  // Text('المتبقي :  ${arabicNumber.convert(bal.toStringAsFixed(2))}',style:  TextStyle(color: Colors.black,fontSize: fontSize,fontWeight: FontWeight.w600),),
-                  Text('Change :  ${bal}',style:  TextStyle(color: Colors.black,fontSize: fontSize+2,fontWeight: FontWeight.w600),),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Cash      :  ${pc.toStringAsFixed(2)}', style: TextStyle(
+                      color: Colors.black,
+                      fontSize: fontSize + 2,
+                      fontWeight: FontWeight.w600),),
+                  Text('Bank      :  ${pb.toStringAsFixed(2)}', style: TextStyle(
+                      color: Colors.black,
+                      fontSize: fontSize + 2,
+                      fontWeight: FontWeight.w600),),
+                  Text('Change :  ${bal.toStringAsFixed(2)}', style: TextStyle(
+                      color: Colors.black,
+                      fontSize: fontSize + 2,
+                      fontWeight: FontWeight.w600),),
 
                 ],
               ),
@@ -1237,7 +1261,6 @@ try {
   bytes += generator.image(image2);
   final im.Image footerImage1 = im.decodeImage(footerImage);
   bytes += generator.image(footerImage1);
-  bytes += generator.feed(2);
   bytes += generator.cut();
 
   print('kot ********************************');
@@ -1252,7 +1275,7 @@ try {
 
     Map<String, dynamic> printerMap = {};
     for (var category in categories) {
-      if(category!="Beverage") {
+      // if(category!="Beverage") {
         String printerID = allCategories[category]['printer'];
 
 
@@ -1261,7 +1284,7 @@ try {
         } else {
           printerMap[printerID].add(category);
         }
-      }
+      // }
     }
     for (var printerID in printerMap.keys.toList()) {
 
@@ -1278,6 +1301,21 @@ try {
          bytes += generator.feed(1);
         bytes += generator.text('Invoice No : ' + invNo.toString(),
             styles: const PosStyles(align: PosAlign.center,height: PosTextSize.size1,width: PosTextSize.size2));
+         bytes += generator.feed(1);
+         bytes += generator.text('Order Type : $dropdownvalue',
+             styles: const PosStyles(align: PosAlign.center,
+                 height: PosTextSize.size1,
+                 width: PosTextSize.size2));
+         bytes += generator.feed(1);
+         bytes += generator.text('Table No : $selectedTable',
+             styles: const PosStyles(align: PosAlign.center,
+                 height: PosTextSize.size1,
+                 width: PosTextSize.size2));
+         bytes += generator.feed(1);
+         bytes += generator.text('=======================',
+             styles: const PosStyles(align: PosAlign.center,
+                 height: PosTextSize.size1,
+                 width: PosTextSize.size2));
          bytes += generator.feed(2);
 
 
@@ -1341,7 +1379,22 @@ try {
               printer1.feed(1);
               printer1.text('Invoice No : ' + invNo.toString(),
                   styles: const PosStyles(align: PosAlign.center,height: PosTextSize.size1,width: PosTextSize.size2));
-              printer1.feed(4);
+              printer1.feed(1);
+              printer1.text('Order Type : $dropdownvalue',
+                  styles: const PosStyles(align: PosAlign.center,
+                      height: PosTextSize.size1,
+                      width: PosTextSize.size2));
+              printer1.feed(1);
+              printer1.text('Table  No : $selectedTable',
+                  styles: const PosStyles(align: PosAlign.center,
+                      height: PosTextSize.size1,
+                      width: PosTextSize.size2));
+              printer1.feed(1);
+              printer1.text('=======================',
+                  styles: const PosStyles(align: PosAlign.center,
+                      height: PosTextSize.size1,
+                      width: PosTextSize.size2));
+              printer1.feed(3);
 
 
               for (Map<String, dynamic> item in items) {
@@ -1939,6 +1992,7 @@ try {
 //   }
   @override
   void initState() {
+    enable=false;
     dropdownvalue="Dine-In";
     setPrinterImages();
     super.initState();
@@ -3293,175 +3347,177 @@ set(){
 
                                                     }
                                                   }
-                                                  return Column(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                      children: [
-                                                        Container(
-                                                          padding:
-                                                          const EdgeInsets
-                                                              .only(
-                                                              top: 10),
-                                                          // child:  Container(),
-                                                          child: keyboard
-                                                              ? Container()
-                                                              : BillWidget(
-                                                            items: snapshot
-                                                                .data
-                                                                .get(
-                                                                'items'),
+                                                  return SingleChildScrollView(
+                                                    child: Column(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                        children: [
+                                                          Container(
+                                                            padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                top: 10),
+                                                            // child:  Container(),
+                                                            child: keyboard
+                                                                ? Container()
+                                                                : BillWidget(
+                                                              items: snapshot
+                                                                  .data
+                                                                  .get(
+                                                                  'items'),
+                                                            ),
                                                           ),
-                                                        ),
-                                                        Container(
-                                                          padding:
-                                                          const EdgeInsets
-                                                              .fromLTRB(
-                                                              20,
-                                                              10,
-                                                              20,
-                                                              10),
-                                                          color: Colors
-                                                              .blueGrey
-                                                              .shade100,
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                            children: [
-                                                              Column(
-                                                                crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                                children: [
-                                                                  Text(
-                                                                    "Total Amount",
-                                                                    style: TextStyle(
-                                                                        fontWeight: FontWeight
-                                                                            .bold,
-                                                                        fontSize:
-                                                                        15,
-                                                                        color:
-                                                                        Colors.grey.shade700),
-                                                                  ),
-                                                                  Text(
-                                                                    "Discount",
-                                                                    style: TextStyle(
-                                                                        fontWeight: FontWeight
-                                                                            .bold,
-                                                                        fontSize:
-                                                                        15,
-                                                                        color:
-                                                                        Colors.grey.shade700),
-                                                                  ),
-                                                                  Text(
-                                                                    "Vat ",
-                                                                    style: TextStyle(
-                                                                        fontWeight: FontWeight
-                                                                            .bold,
-                                                                        fontSize:
-                                                                        15,
-                                                                        color:
-                                                                        Colors.grey.shade700),
-                                                                  ),
-                                                                  Text(
-                                                                    "Delivery ",
-                                                                    style: TextStyle(
-                                                                        fontWeight: FontWeight
-                                                                            .bold,
-                                                                        fontSize:
-                                                                        15,
-                                                                        color:
-                                                                        Colors.grey.shade700),
-                                                                  ),
-                                                                  const SizedBox(
-                                                                    height:
-                                                                    10,
-                                                                  ),
-                                                                  Text(
-                                                                    "Grand Total",
-                                                                    style: TextStyle(
-                                                                        fontWeight: FontWeight
-                                                                            .bold,
-                                                                        fontSize:
-                                                                        16,
-                                                                        color:
-                                                                        Colors.grey.shade700),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Column(
-                                                                crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .end,
-                                                                children: [
-                                                                  Text(
-                                                                    "SR ${(totalAmount*100/(100+gst)).toStringAsFixed(2)}",
-                                                                    style: TextStyle(
-                                                                        fontWeight: FontWeight
-                                                                            .bold,
-                                                                        fontSize:
-                                                                        15,
-                                                                        color:
-                                                                        Colors.grey.shade700),
-                                                                  ),
-                                                                  Text(
-                                                                    double.tryParse(discount) ==
-                                                                        null
-                                                                        ? "0.00"
-                                                                        : "SR ${double.tryParse(discount).toStringAsFixed(2)}",
-                                                                    style: TextStyle(
-                                                                        fontWeight: FontWeight
-                                                                            .bold,
-                                                                        fontSize:
-                                                                        16,
-                                                                        color:
-                                                                        Colors.grey.shade700),
-                                                                  ),
-                                                                  Text(
-                                                                    " SR ${(totalAmount * gst /(100+gst)).toStringAsFixed(2)}",
-                                                                    style: TextStyle(
-                                                                        fontWeight: FontWeight
-                                                                            .bold,
-                                                                        fontSize:
-                                                                        15,
-                                                                        color:
-                                                                        Colors.grey.shade700),
-                                                                  ),
-                                                                  Text(
-                                                                    double.tryParse(delivery) ==
-                                                                        null
-                                                                        ? "0.00"
-                                                                        : "SR ${double.tryParse(delivery).toStringAsFixed(2)}",
-                                                                    style: TextStyle(
-                                                                        fontWeight: FontWeight
-                                                                            .bold,
-                                                                        fontSize:
-                                                                        16,
-                                                                        color:
-                                                                        Colors.grey.shade700),
-                                                                  ),
-                                                                  const SizedBox(
-                                                                    height:
-                                                                    10,
-                                                                  ),
-                                                                  Text(
-                                                                    "SR ${(totalAmount - (double.tryParse(discount) ?? 0)+(double.tryParse(delivery) ??0)).toStringAsFixed(2)}",
-                                                                    style: TextStyle(
+                                                          Container(
+                                                            padding:
+                                                            const EdgeInsets
+                                                                .fromLTRB(
+                                                                20,
+                                                                10,
+                                                                20,
+                                                                10),
+                                                            color: Colors
+                                                                .blueGrey
+                                                                .shade100,
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                              children: [
+                                                                Column(
+                                                                  crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                                  children: [
+                                                                    Text(
+                                                                      "Total Amount",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                          15,
+                                                                          color:
+                                                                          Colors.grey.shade700),
+                                                                    ),
+                                                                    Text(
+                                                                      "Discount",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                          15,
+                                                                          color:
+                                                                          Colors.grey.shade700),
+                                                                    ),
+                                                                    Text(
+                                                                      "Vat ",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                          15,
+                                                                          color:
+                                                                          Colors.grey.shade700),
+                                                                    ),
+                                                                    Text(
+                                                                      "Delivery ",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                          15,
+                                                                          color:
+                                                                          Colors.grey.shade700),
+                                                                    ),
+                                                                    const SizedBox(
+                                                                      height:
+                                                                      10,
+                                                                    ),
+                                                                    Text(
+                                                                      "Grand Total",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                          16,
+                                                                          color:
+                                                                          Colors.grey.shade700),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                Column(
+                                                                  crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .end,
+                                                                  children: [
+                                                                    Text(
+                                                                      "SR ${(totalAmount*100/(100+gst)).toStringAsFixed(2)}",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                          15,
+                                                                          color:
+                                                                          Colors.grey.shade700),
+                                                                    ),
+                                                                    Text(
+                                                                      double.tryParse(discount) ==
+                                                                          null
+                                                                          ? "0.00"
+                                                                          : "SR ${double.tryParse(discount).toStringAsFixed(2)}",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                          16,
+                                                                          color:
+                                                                          Colors.grey.shade700),
+                                                                    ),
+                                                                    Text(
+                                                                      " SR ${(totalAmount * gst /(100+gst)).toStringAsFixed(2)}",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                          15,
+                                                                          color:
+                                                                          Colors.grey.shade700),
+                                                                    ),
+                                                                    Text(
+                                                                      double.tryParse(delivery) ==
+                                                                          null
+                                                                          ? "0.00"
+                                                                          : "SR ${double.tryParse(delivery).toStringAsFixed(2)}",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                          16,
+                                                                          color:
+                                                                          Colors.grey.shade700),
+                                                                    ),
+                                                                    const SizedBox(
+                                                                      height:
+                                                                      10,
+                                                                    ),
+                                                                    Text(
+                                                                      "SR ${(totalAmount - (double.tryParse(discount) ?? 0)+(double.tryParse(delivery) ??0)).toStringAsFixed(2)}",
+                                                                      style: TextStyle(
 
-                                                                        fontWeight: FontWeight
-                                                                            .bold,
-                                                                        fontSize:
-                                                                        15,
-                                                                        color:
-                                                                        Colors.grey.shade700),
-                                                                  ),
-                                                                ],
-                                                              )
-                                                            ],
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                          15,
+                                                                          color:
+                                                                          Colors.grey.shade700),
+                                                                    ),
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ]);
+                                                        ]),
+                                                  );
                                                 }),
                                           ),
                                         ],
@@ -3807,9 +3863,12 @@ set(){
                                                               balance:balance??0
                                                             );
                                                           });
+                                                             setState(() {
+                                                               paidCash.text='';
+                                                               paidCash.text='';
+                                                               enable=false;
+                                                             });
 
-                                                      paidCash.text='';
-                                                      paidCash.text='';
 
                                                     }else{
 
@@ -4071,16 +4130,10 @@ set(){
                                                         //   printFunction(invoiceNo,double.tryParse(
                                                         //       discount) ?? 0);
                                                         // }
-                                                        List<String> ingredientIds=[];
-                                                        for(var a in billItems){
-                                                          for(var b in a['ingredients']){
+                                                        List<String> ingredientIds = [];
+                                                        for (var a in items) {
+                                                          for (var b in a['ingredients'] ?? []) {
                                                             ingredientIds.add(b['ingredientId']);
-                                                          }
-                                                          for(var b in a['variants']){
-                                                            for(var c in b['ingredients']){
-                                                              ingredientIds.add(c['ingredientId']);
-                                                            }
-
                                                           }
                                                         }
                                                         await FirebaseFirestore.instance
@@ -4108,10 +4161,11 @@ set(){
 
                                                           'paidCash':double.tryParse(paidCash.text)??0,
                                                           'paidBank':double.tryParse(paidBank.text)??0,
-                                                          'cash': paidCash.text=='0'?false:true,
-                                                          'bank': paidBank.text=='0'?false:true,
+                                                          'cash': paidCash.text==''|| paidCash.text=='0.0'?false:true ,
+                                                          'bank': paidBank.text==''||paidBank.text=='0.0'?false:true,
                                                           'balance':balance,
-                                                          "ingredientIds":ingredientIds
+                                                          "ingredientIds":ingredientIds,
+
                                                         });
 
                                                         paidCash.text='';
@@ -4139,6 +4193,7 @@ set(){
                                                           cashPaid=0;
                                                           bankPaid=0;
                                                           disable = false;
+                                                          enable=false;
                                                         });
                                                       }
                                                       showUploadMessage(context, 'Saved Successfully');
@@ -4205,17 +4260,7 @@ set(){
                                                                   Container(
                                                                     height: 45,
                                                                     child: TextFormField(
-                                                                      onEditingComplete: () {
-                                                                        FocusScope.of(context)
-                                                                            .unfocus();
-                                                                        // textController.selection =
-                                                                        //     TextSelection.collapsed(offset: textController.text.length);
 
-
-                                                                        setState(() {
-                                                                           keyboard = false;
-                                                                        });
-                                                                      },
                                                                       onTap: () {
                                                                         setItemWidgets(items);
                                                                         double grandTotal=(totalAmount - (double.tryParse(discount) ?? 0)+(double.tryParse(delivery) ??0));
@@ -4227,7 +4272,7 @@ set(){
                                                                             cashPaid=0;
                                                                             balance=grandTotal-cashPaid-bankPaid;
                                                                           }
-                                                                          paidCash.text=cashPaid.toStringAsFixed(1);
+                                                                          paidCash.text=cashPaid.toStringAsFixed(2);
 
 
                                                                         setState(() {
@@ -4239,18 +4284,17 @@ set(){
 
                                                                         cashPaid=double.tryParse(value)??0;
                                                                         bankPaid=grandTotal-cashPaid??0;
-                                                                        if(bankPaid<0){
-                                                                          bankPaid=0;
+                                                                        if(bankPaid<0) {
+                                                                          bankPaid = 0;
                                                                         }
-                                                                        paidBank.text=bankPaid.toString();
+                                                                        paidBank.text=bankPaid.toStringAsFixed(2);
                                                                         balance=grandTotal-cashPaid-bankPaid;
                                                                         setState(() {
                                                                           // keyboard = true;
                                                                         });
                                                                       },
                                                                       controller: paidCash,
-                                                                      keyboardType:
-                                                                      TextInputType.number,
+                                                                      keyboardType: TextInputType.number,
                                                                       decoration: InputDecoration(
                                                                         // labelText: 'DISCOUNT',
                                                                           hoverColor: default_color,
@@ -4299,15 +4343,15 @@ set(){
                                                                     height: 45,
                                                                     child: TextFormField(
 
-                                                                      onEditingComplete: () {
-                                                                        FocusScope.of(context)
-                                                                            .unfocus();
-
-
-                                                                        setState(() {
-                                                                          keyboard = false;
-                                                                        });
-                                                                      },
+                                                                      // onEditingComplete: () {
+                                                                      //   FocusScope.of(context)
+                                                                      //       .unfocus();
+                                                                      //
+                                                                      //
+                                                                      //   setState(() {
+                                                                      //     keyboard = false;
+                                                                      //   });
+                                                                      // },
                                                                       onTap: () {
                                                                         setItemWidgets(items);
                                                                         double grandTotal=(totalAmount - (double.tryParse(discount) ?? 0)+(double.tryParse(delivery) ??0));
@@ -4319,7 +4363,7 @@ set(){
                                                                           bankPaid=0;
 
                                                                         }
-                                                                        paidBank.text=bankPaid.toStringAsFixed(1);
+                                                                        paidBank.text=bankPaid.toStringAsFixed(2);
 
 
                                                                         balance=grandTotal-cashPaid-bankPaid;
@@ -4335,8 +4379,7 @@ set(){
                                                                         if(cashPaid<0){
                                                                           cashPaid=0;
                                                                         }
-                                                                        paidCash.text=cashPaid.toString();
-                                                                        // print(bankPaid);
+                                                                        paidCash.text=cashPaid.toStringAsFixed(2);
                                                                         balance=grandTotal-cashPaid-bankPaid;
                                                                         setState(() {
                                                                           // keyboard = true;
@@ -4388,7 +4431,7 @@ set(){
 
                                                   Container(
                                                     height:MediaQuery.of(context).size.height * 0.05,
-                                                    child: Center(child: Text('Balance : $balance',style: TextStyle(
+                                                    child: Center(child: Text('Balance : ${balance.toStringAsFixed(2)}',style: TextStyle(
                                                         fontWeight: FontWeight.bold,
                                                       fontSize: 17
                                                     ),)),
@@ -4421,6 +4464,8 @@ set(){
                                               balance=0;
                                               cashPaid=0;
                                               bankPaid=0;
+                                              enable=false;
+                                              dropdownvalue="Dine-In";
                                             });
                                           },
                                           child: Container(
@@ -4451,7 +4496,10 @@ set(){
                                             ),
                                           ),
                                         ),
-                                        InkWell(
+                                        enable?InkWell(
+                                          onLongPress: (){
+                                            disable=false;
+                                          },
                                           onTap: () async {
                                             print("start");
                                             print(DateTime.now());
@@ -4550,7 +4598,8 @@ set(){
                                                        items, token,selectedTable,
                                                        double.tryParse(deliveryCharge.text)??0,
                                                        double.tryParse(paidCash.text)??0,
-                                                       double.tryParse(paidBank.text)??0,balance??0
+                                                       double.tryParse(paidBank.text)??0,balance??0,
+                                                       dropdownvalue
                                                       );
 
                                                 }
@@ -4582,7 +4631,10 @@ set(){
                                                   'cash': paidCash.text==''|| paidCash.text=='0.0'?false:true ,
                                                   'bank': paidBank.text==''||paidBank.text=='0.0'?false:true,
                                                   'balance':balance,
-                                                  "ingredientIds":ingredientIds
+                                                  "ingredientIds":ingredientIds,
+
+
+
 
                                                 });
 
@@ -4606,6 +4658,7 @@ set(){
                                                 setState(() {
                                                   discountController.text = '0';
                                                   deliveryCharge.text = '0';
+                                                  enable=false;
 
                                                   qty=0;
                                                 }
@@ -4625,6 +4678,7 @@ set(){
                                               balance=0;
                                               cashPaid=0;
                                               bankPaid=0;
+                                              dropdownvalue="Dine-In";
 
                                             }
                                             }
@@ -4661,6 +4715,33 @@ set(){
                                                 )
                                               ],
                                             ),
+                                          ),
+                                        ):Container(
+                                          height: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.15,
+                                          width: 120,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade400,
+                                          ),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                            children:  const [
+                                              Icon(
+                                                Icons.print,
+                                                size: 35,
+                                                color: Colors.white,
+                                              ),
+                                              Text(
+                                                "PRINT",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                    FontWeight.bold),
+                                              )
+                                            ],
                                           ),
                                         ),
                                       ],

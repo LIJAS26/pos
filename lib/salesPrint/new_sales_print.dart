@@ -73,7 +73,7 @@ class _mytestState extends State<mytest> {
 
   qr(String vatTotal1, String grantTotal) {
     // seller name
-    String sellerName = 'Boofiya Faraula';
+    String sellerName = 'POINT PLUS';
     String vat_registration = vatNumber;
     String vatTotal = vatTotal1;
     String invoiceTotal = grantTotal;
@@ -312,7 +312,7 @@ class _mytestState extends State<mytest> {
         var  filePathAndName;
         final invoice = Invoice(
             info: InvoiceInfo(
-              description: 'Boofiya Faraula',
+              description: 'POINT PLUS',
               number: '',
               date: DateTime.now(),
             ),
